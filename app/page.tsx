@@ -253,7 +253,7 @@ export default function Component() {
       id: 6, 
       title: 'Continuous Integration Pipeline', 
       description: 'Streamlined CI/CD pipeline implementation, automating build, test, and deployment processes for faster and more reliable software delivery. Video demo will be added soon.', 
-      images: ['/jenkins.png', '/new-image-6.jpg', '/placeholder.svg?height=400&width=600'],
+      images: ['/Jenkins.png', '/new-image-6.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
       technologies: ['Appium', 'Cucumber', 'Java', 'TestNG', 'Jenkins'],
       features: [
