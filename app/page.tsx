@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
 
 const useIsClient = () => {
   const [isClient, setIsClient] = useState(false)
@@ -98,15 +98,6 @@ const LazyVideo = ({ src, className = '', onClick }: { src: string; className?: 
 }
 
 export default function Component() {
-  type Project = {
-    id: number
-    title: string
-    description: string
-    images: string[]
-    githubUrl: string
-    technologies: string[]
-    features: string[]
-  }
 
   const [selectedProjectIndex, setSelectedProjectIndex] = useState<number | null>(null)
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -379,7 +370,7 @@ export default function Component() {
     setSelectedProjectIndex(newIndex)
   }
 
-  const projectVideos = {
+  const projectVideos: { [key: number]: string } = {
     0: "/Postman.mp4",
     1: "/SeleniumVideo.mp4",
     3: "/Cucumber.mp4",
@@ -563,8 +554,8 @@ export default function Component() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            I'm Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, ensuring intuitive user experiences. After hours, I build my own projects.
+          > 
+          I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, ensuring intuitive user experiences. After hours, I build my own projects.
           </motion.p>
           <motion.div
             className="flex flex-col items-center gap-6"
