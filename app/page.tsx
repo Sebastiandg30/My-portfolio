@@ -372,9 +372,9 @@ export default function Component() {
 
   const projectVideos: { [key: number]: string } = {
     0: "/Postman.mp4",
-    1: "/SeleniumVideo.mp4",
+    1: "Seleniumvideo1.mp4",
     3: "/Cucumber1.mp4",
-    4: "/CSvideo.mp4",
+    4: "/CSvideo1.mp4",
   }
 
   const handleFullScreen = (type: 'image' | 'video', src: string) => {
