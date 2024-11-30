@@ -373,7 +373,7 @@ export default function Component() {
   const projectVideos: { [key: number]: string } = {
     0: "/Postman.mp4",
     1: "/SeleniumVideo.mp4",
-    3: "/Cucumber.mp4",
+    3: "/Cucumber1.mp4",
     4: "/CSvideo.mp4",
   }
 
