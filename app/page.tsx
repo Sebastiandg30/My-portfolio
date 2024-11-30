@@ -555,7 +555,7 @@ export default function Component() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           > 
-          I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, ensuring intuitive user experiences. After hours, I build my own projects.
+          I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, and I ensure quality and intuitive user experiences. After hours, I build my own projects.
           </motion.p>
           <motion.div
             className="flex flex-col items-center gap-6"
@@ -572,7 +572,11 @@ export default function Component() {
                 {isClient && currentTime.toLocaleTimeString('en-US', { timeZone: 'America/Caracas' })} UTC-4
               </p>
             </div>
-            <Button variant="outline" className="flex items-center gap-2 bg-transparent border-slate-300 dark:border-slate-300 text-slate-300 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-300">
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 bg-transparent border-slate-300 dark:border-slate-300 text-slate-300 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-300"
+              onClick={() => window.open('/Sebastian Gomez CV.pdf')}
+            >
               <FileText className="w-4 h-4" />
               Download CV
             </Button>
@@ -726,13 +730,14 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-             
-  <li>Created functional and regression automation scripts from test case requirements, reducing manual effort and saving several hours per week.</li>
-  <li>Utilized positive and negative test scenarios for thorough system coverage, leading to a 20% increase in defect detection.</li>
-  <li>Collaborated with developers to resolve issues, improving overall product quality and reducing time-to-market.</li>
-  <li>Worked on several projects, ensuring efficient testing processes and adaptability to varying project needs.</li>
-  <li>Regularly communicated with American Product Owners (POs) and clients during demos and daily standups in English, fostering clear understanding and alignment on project goals.</li>
-</ul>
+                  <li>Implemented manual and automated testing strategies, improving testing efficiency across various projects.</li>
+                  <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly reducing manual testing effort.</li>
+                  <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
+                  <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection and reducing production issues.</li>
+                  <li>Validated test environments, generated reports, and classified software quality issues, leading to a more streamlined testing process.</li>
+                  <li>Worked on several projects, ensuring efficient testing processes and adaptability to varying project needs.</li>
+                  <li>Regularly communicated with American Product Owners (POs) and clients during demos and daily standups in English, fostering clear understanding and alignment on project goals.</li>
+                </ul>
 
               </CardContent>
             </Card>
@@ -744,12 +749,11 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly 
-          reducing manual testing effort.</li>
-                  <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
-                  <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection 
-                  and reducing production issues.</li>
-                  <li>Communicate effectively with developers and product managers to ensure quality standards are met.</li>
+                  <li>Created functional and regression automation scripts from test case requirements, reducing manual effort and saving several hours per week.</li>
+                  <li>Utilized positive and negative test scenarios for thorough system coverage, leading to an increase in early defect detection and a reduction in critical bugs in production.</li>
+                  <li>Developed and maintained scalable test automation frameworks and manual testing processes, reducing testing time.</li>
+                  <li>Triaged, diagnosed, reported, tracked, and resolved software quality issues.</li>
+                  <li>Communicated actively across multiple teams, ensuring cohesion and collaboration, which improved team productivity and reduced project delivery time.</li>
                 </ul>
               </CardContent>
             </Card>
@@ -831,7 +835,7 @@ export default function Component() {
                     <Github className="w-6 h-6 text-gray-400 transition-colors group-hover:text-white" />
                   </div>
                   <a 
-                    href="https://github.com/yourusername" 
+                    href="https://github.com/Sebastiandg30" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-300 transition-colors group-hover:text-white relative"
