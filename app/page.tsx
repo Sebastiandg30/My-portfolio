@@ -377,7 +377,7 @@ export default function Component() {
     5: "/Zapvideo.mp4",
     3: "/Cucumber1.mp4",
     4: "/JenkinsVideoOp.mp4",
-    2: "/CSvideo1.mp4",
+    2: "/Csvideo1.mp4",
     6: "/JmetervidOp.mp4"
   }
 
