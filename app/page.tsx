@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
-import Image from 'next/image'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog"
+import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from "next/image"
+import Button from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog'
 
 const useIsClient = () => {
   const [isClient, setIsClient] = useState(false)
@@ -20,16 +20,17 @@ const LazyImage = ({ src, alt, className = '', onClick }: { src: string; alt: st
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <div className={`relative ${className}`} onClick={onClick}>
+    (<div className={`relative ${className}`} onClick={onClick}>
       <Image
         src={src}
         alt={alt}
-        layout="fill"
-        objectFit="cover"
         loading="lazy"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         onLoadingComplete={() => setIsLoading(false)}
-      />
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        style={{
+          objectFit: "cover"
+        }} />
       <AnimatePresence>
         {isLoading && (
           <motion.div
@@ -45,8 +46,8 @@ const LazyImage = ({ src, alt, className = '', onClick }: { src: string; alt: st
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  )
+    </div>)
+  );
 }
 
 const LazyVideo = ({ src, className = '', onClick }: { src: string; className?: string; onClick?: () => void }) => {
@@ -183,7 +184,7 @@ export default function Component() {
       id: 1, 
       title: 'API Testing with Postman', 
       description: 'Used Postman to validate critical API endpoints by automating tests for HTTP methods (GET, POST, PATCH, DELETE), ensuring reliability, performance, and error handling.', 
-      images: ['/0.jpg', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
+      images: ['/Postman.jpg', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
       technologies: ['Postman', 'JSON', 'API Testing Frameworks', 'Continuous Integration Tools'],
       features: [
@@ -197,7 +198,7 @@ export default function Component() {
       id: 2, 
       title: 'Automated Testing with Selenium', 
       description: 'Developed and executed automated functional and regression tests using Selenium and Selenium IDE to ensure web application quality and compatibility across browsers. Integrated testing into the development cycle for efficient defect detection and resolution.', 
-      images: ['/selenium.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
+      images: ['/selenium.webp', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
       technologies: ['Selenium', 'Selenium IDE', 'JavaScript', 'Cross-Browser Testing Tools'],
       features: [
@@ -208,17 +209,17 @@ export default function Component() {
       ]
     },
     {
-      id: 3, 
-      title: 'Mobile App Testing with Appium', 
-      description: 'Automated testing for mobile applications using Appium to ensure functionality, performance, and compatibility across Android and iOS devices. Video demo will be added soon.', 
-      images: ['/appium-transformed.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
+      id: 5, 
+      title: 'Python Programming CS50P/CS50 Certificates', 
+      description: 'Earned certificates for completing Harvard’s CS50 Introduction to Computer Science and CS50’s Introduction to Programming with Python, gaining a solid foundation in computer science concepts and Python development.', 
+      images: ['/Professional Certificate Optimized.jpg', '/Professional Certificate Optimized.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Appium', 'Java', 'Mobile Testing Frameworks', 'Android & iOS Platforms'],
+      technologies: ['Python', 'C', 'Data Structures', 'Algorithms', 'Web Development Basics'],
       features: [
-        'Automated functional and regression testing for mobile apps.',
-        'Cross-platform testing for Android and iOS devices.',
-        'Validation of performance and user experience.',
-        'Scalable test scripts for diverse mobile environments.'
+        'Learned foundational computer science concepts, including algorithms and data structures.',
+        'Gained hands-on experience with Python programming for real-world applications.',
+        'Explored web development basics, including front-end and back-end concepts.',
+        'Completed multiple programming assignments and projects to reinforce learning.'
       ]
     },
     {
@@ -236,24 +237,10 @@ export default function Component() {
       ]
     },
     {
-      id: 5, 
-      title: 'Computer Science for Python Programming', 
-      description: 'Earned certificates for completing Harvard’s CS50 Introduction to Computer Science and CS50’s Introduction to Programming with Python, gaining a solid foundation in computer science concepts and Python development.', 
-      images: ['/python.jpg', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Python', 'C', 'Data Structures', 'Algorithms', 'Web Development Basics'],
-      features: [
-        'Learned foundational computer science concepts, including algorithms and data structures.',
-        'Gained hands-on experience with Python programming for real-world applications.',
-        'Explored web development basics, including front-end and back-end concepts.',
-        'Completed multiple programming assignments and projects to reinforce learning.'
-      ]
-    },
-    { 
       id: 6, 
       title: 'Continuous Integration Pipeline', 
       description: 'Streamlined CI/CD pipeline implementation, automating build, test, and deployment processes for faster and more reliable software delivery. Video demo will be added soon.', 
-      images: ['/Jenkins.png', '/new-image-6.jpg', '/placeholder.svg?height=400&width=600'],
+      images: ['/Jenkins.webp', '/new-image-6.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
       technologies: ['Appium', 'Cucumber', 'Java', 'TestNG', 'Jenkins'],
       features: [
@@ -262,11 +249,11 @@ export default function Component() {
         'Automated build, test, and deployment workflows.',
       ]
     },
-    {
-      id: 7, 
+    { 
+      id: 3, 
       title: 'Application Security Testing with OWASP Tools', 
       description: 'Utilized OWASP tools to identify and mitigate security vulnerabilities in web applications, ensuring compliance with best practices for secure software development.  Video demo will be added soon.', 
-      images: ['/owasp.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
+      images: ['/owasp (1).png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
       technologies: ['OWASP ZAP', 'Burp Suite', 'Web Security', 'Penetration Testing'],
       features: [
@@ -275,6 +262,20 @@ export default function Component() {
         'Ensured compliance with OWASP Top 10 security guidelines.',
         'Conducted penetration testing to identify and mitigate risks.',
         'Enhanced application security through proactive testing.'
+      ]
+    },
+    {
+      id: 7, 
+      title: 'Performance Testing with JMeter', 
+      description: "Conducted performance and load testing using JMeter to ensure application stability and responsiveness under varying user loads.",
+      images: ['/Jmeter.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
+      githubUrl: 'https://github.com/Sebastiandg30',
+      technologies: ["JMeter", "Apache JMeter", "Performance Testing", "Load Testing"],
+      features: [
+        "Created and executed performance test plans to simulate real-world user load.",
+    "Analyzed response times, throughput, and system performance metrics.",
+    "Identified and reported bottlenecks to improve application efficiency.",
+    "Automated performance testing for continuous integration workflows."
       ]
   },
   ]
@@ -373,8 +374,11 @@ export default function Component() {
   const projectVideos: { [key: number]: string } = {
     0: "/Postman.mp4",
     1: "Seleniumvideo1.mp4",
+    5: "/Zapvideo.mp4",
     3: "/Cucumber1.mp4",
-    4: "/CSvideo1.mp4",
+    4: "/JenkinsVideoOp.mp4",
+    2: "/CSvideo1.mp4",
+    6: "/JmetervidOp.mp4"
   }
 
   const handleFullScreen = (type: 'image' | 'video', src: string) => {
@@ -383,7 +387,7 @@ export default function Component() {
   }
 
   return (
-    <div className={`min-h-screen bg-black text-white relative z-10 ${
+    (<div className={`min-h-screen bg-black text-white relative z-10 ${
       isMobile ? 'bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]' :
         ''
     }`}>
@@ -407,7 +411,6 @@ export default function Component() {
           </div>
         </motion.div>
       )}
-
       <header className="fixed w-full top-0 z-40 px-6 py-4 bg-black/50 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <motion.div 
@@ -509,7 +512,6 @@ export default function Component() {
           </div>
         </div>
       </header>
-
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -532,7 +534,6 @@ export default function Component() {
           </motion.div>
         )}
       </AnimatePresence>
-
       <main className="container mx-auto px-4 pt-32 pb-24 space-y-32">
         <motion.section 
           id="about-me" 
@@ -566,7 +567,7 @@ export default function Component() {
             <div className="border-t border-b border-indigo-300 dark:border-indigo-700 py-2 my-2">
               <p className="text-slate-300 dark:text-indigo-300 flex items-center justify-center gap-2">
                 Located in Caracas, Venezuela 
-                <img src="/Flag_of_Venezuela.svg" alt="Flag of Venezuela" width={35} height={30} />
+                <Image src="/Flag_of_Venezuela.svg" alt="Flag of Venezuela" width={35} height={30} />
               </p>
               <p className="text-slate-300 dark:text-indigo-300">
                 {isClient && currentTime.toLocaleTimeString('en-US', { timeZone: 'America/Caracas' })} UTC-4
@@ -657,18 +658,12 @@ export default function Component() {
                   <Image
                     src={project.images[0]}
                     alt={project.title}
-                    layout="fill"
-                    objectFit="cover"
                     className="transition-all duration-300 md:filter md:grayscale md:group-hover:filter-none"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-2 right-2 text-white"
-                    onClick={() => handleFullScreen('image', project.images[0])}
-                  >
-                    <Maximize2 />
-                  </Button>
+                    fill
+                    sizes="100vw"
+                    style={{
+                      objectFit: "cover"
+                    }} /> 
                 </CardHeader>
                 <CardContent className="p-4 flex-1">
                   <CardTitle className="text-white mb-2">{project.title}</CardTitle>
@@ -726,11 +721,11 @@ export default function Component() {
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
                 <CardTitle className="text-white">Mid QA Engineer</CardTitle>
-                <CardDescription className="text-gray-400">NetForemost | 2024 August - Present </CardDescription>
+                <CardDescription className="text-gray-400">NetForemost | August - Present 2024 (Full-Time) </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Implemented manual and automated testing strategies, improving testing efficiency across various projects.</li>
+                  <li>Implemented Test-Driven Development (TDD) in projects to enhance code quality and ensure robust test coverage.</li>
                   <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly reducing manual testing effort.</li>
                   <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
                   <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection and reducing production issues.</li>
@@ -745,11 +740,11 @@ export default function Component() {
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
                 <CardTitle className="text-white">QA Engineer</CardTitle>
-                <CardDescription className="text-gray-400">Uemura | 2024 January - 2024 July (Part-time)</CardDescription>
+                <CardDescription className="text-gray-400">Uemura | January - August 2024 (Part-time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Created functional and regression automation scripts from test case requirements, reducing manual effort and saving several hours per week.</li>
+                  <li>Took a buggy and problematic production environment and worked on delivering a more stable and reliable version, improving overall system performance and user satisfaction.</li>
                   <li>Utilized positive and negative test scenarios for thorough system coverage, leading to an increase in early defect detection and a reduction in critical bugs in production.</li>
                   <li>Developed and maintained scalable test automation frameworks and manual testing processes, reducing testing time.</li>
                   <li>Triaged, diagnosed, reported, tracked, and resolved software quality issues.</li>
@@ -869,7 +864,6 @@ export default function Component() {
           </div>
         </motion.section>
       </main>
-
       <Dialog open={selectedProjectIndex !== null} onOpenChange={closeProjectDialog}>
         <DialogContent className="max-w-[95vw] md:max-w-[80vw] w-full max-h-[78vh] h-full overflow-y-auto bg-zinc-900 text-white border border-zinc-800">
           {selectedProjectIndex !== null && (
@@ -889,15 +883,14 @@ export default function Component() {
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="md:w-1/2">
                     <div className="space-y-4">
-                      <div className="aspect-video w-full max-w-[400px] mx-auto overflow-hidden rounded-lg border border-zinc-800">
+                      <div className="aspect-video w-full max-w-[400px] mx-auto overflow-hidden rounded-lg border border-zinc-800 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                         <LazyImage
                           src={allProjects[selectedProjectIndex].images[0]}
                           alt={`${allProjects[selectedProjectIndex].title} preview`}
                           className="w-full h-full"
-                          onClick={() => handleFullScreen('image', allProjects[selectedProjectIndex].images[0])}
                         />
                       </div>
-                      <div className="aspect-video w-full max-w-[400px] mx-auto overflow-hidden rounded-lg border border-zinc-800 bg-zinc-800/50">
+                     <div className="aspect-video w-full max-w-[400px] mx-auto overflow-hidden rounded-lg border border-zinc-800 bg-zinc-800/50 transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
                         {projectVideos[selectedProjectIndex] ? (
                           <LazyVideo
                             src={projectVideos[selectedProjectIndex]}
@@ -908,7 +901,7 @@ export default function Component() {
                           <div className="flex items-center justify-center w-full h-full">
                             <span className="text-zinc-400">No video available</span>
                           </div>
-                        )}
+                          )}
                       </div>
                     </div>
                   </div>
@@ -974,7 +967,6 @@ export default function Component() {
           )}
         </DialogContent>
       </Dialog>
-
       <Dialog open={isFullScreen} onOpenChange={(open) => !open && setIsFullScreen(false)}>
         <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 bg-black">
           <DialogTitle className="sr-only">Full Screen Content</DialogTitle>
@@ -983,9 +975,11 @@ export default function Component() {
               <Image
                 src={fullScreenContent.src}
                 alt="Full screen image"
-                layout="fill"
-                objectFit="contain"
-              />
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: "contain"
+                }} />
             )}
             {fullScreenContent?.type === 'video' && (
               <video
@@ -1003,6 +997,7 @@ export default function Component() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
-  )
+    </div>)
+  );
 }
+

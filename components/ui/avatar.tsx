@@ -8,14 +8,14 @@ interface AvatarProps {
     children: React.ReactNode;
   }
   
-  export function Avatar({ src, alt, fallbackText }: AvatarProps) {
+  export function Avatar({ src, fallbackText }: AvatarProps) {
     return (
       <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
         {src ? (
-          <img src={src} alt={alt} className="object-cover w-full h-full" />
+          <image href={src} className="object-cover w-full h-full" />
         ) : (
           <span className="flex items-center justify-center w-full h-full text-sm text-gray-500 dark:text-gray-300">
-            {fallbackText}
+        {fallbackText}
           </span>
         )}
       </div>

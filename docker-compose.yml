@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Cambia el puerto si usas Nginx en prod
+    volumes:
+      - .:/app # Sincroniza archivos locales con el contenedor
+      - /app/node_modules # Ignora node_modules para evitar conflictos
+    environment:
+      NODE_ENV: development # Ambiente no productivo
+    command: npm run dev # Ejecuta el modo de desarrollo de Next.js
