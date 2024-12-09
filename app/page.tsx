@@ -424,7 +424,8 @@ export default function Component() {
   ]
 
   const openProjectDialog = (index: number) => {
-    setSelectedProjectIndex(index)
+    const actualIndex = allProjects.findIndex(project => project.id === visibleProjects[index].id);
+    setSelectedProjectIndex(actualIndex);
   }
 
   const closeProjectDialog = () => {
@@ -438,6 +439,7 @@ export default function Component() {
       : (selectedProjectIndex + 1) % allProjects.length
     setSelectedProjectIndex(newIndex)
   }
+
 
   const projectVideos: { [key: number]: string } = {
     0: "/Postman.mp4",
@@ -568,7 +570,7 @@ export default function Component() {
                 exit={{ opacity: 0, y: -20 }}
                 className="fixed top-[72px] left-0 right-0 bg-black/90 backdrop-blur-md p-4 md:hidden z-30"
               >
-                {['about-me', 'skills', 'projects', 'experience', 'education', 'certifications', 'contact'].map((section) => (
+                {['skills', 'projects', 'experience', 'education', 'certifications', 'contact'].map((section) => (
                   <Button
                     key={section}
                     variant="ghost"
