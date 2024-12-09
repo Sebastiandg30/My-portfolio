@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight, ClipboardCheck, Terminal, Layout, Smartphone, TestTube, Trello, GitBranch, Repeat, CheckCircle, Shield, Globe, Plane, Network, Search, Activity, ChevronUp } from 'lucide-react'
+import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight, Terminal, Smartphone, TestTube, GitBranch, Repeat, Shield, Globe, Plane, Network, Search, Activity, ChevronUp } from 'lucide-react'
 import Image from "next/image"
 import Button from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
