@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronDown, Github, Linkedin, Mail, FileText, Plus, Minus, X, ChevronLeft, ChevronRight, ClipboardCheck, Terminal, Layout, Smartphone, TestTube, Trello, GitBranch, Repeat, CheckCircle, Shield, Globe, Plane, Network, Search, Activity, ChevronUp } from 'lucide-react'
 import Image from "next/image"
 import Button from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
@@ -109,6 +109,8 @@ export default function Component() {
   const [isMobile, setIsMobile] = useState(false)
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [fullScreenContent, setFullScreenContent] = useState<{ type: 'image' | 'video'; src: string } | null>(null)
+  const [showCertifications, setShowCertifications] = useState(false)
+  const [selectedFilter, setSelectedFilter] = useState('all')
   const cursorRef = useRef(null)
   const isClient = useIsClient()
   const projectsRef = useRef(null)
@@ -131,7 +133,7 @@ export default function Component() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['about-me', 'skills', 'projects', 'experience', 'education', 'contact']
+      const sections = ['about-me', 'skills', 'projects', 'experience', 'education', 'certifications', 'contact']
       const current = sections.find(section => {
         const element = document.getElementById(section)
         if (element) {
@@ -175,9 +177,68 @@ export default function Component() {
   }
 
   const skills = [
-    "Manual Testing", "Automated Testing", "UI Testing", "Responsive testing", "Jest", "JIRA",
-    "Agile Methodologies", "CI/CD", "Click Up", "Security testing", "App testing", "Cross-browser Testing", "TestFlight", "API Testing"
+    { name: "Automated Testing", icon: <Terminal className="w-4 h-4" /> },
+    { name: "Jest", icon: <TestTube className="w-4 h-4" /> },
+    { name: "Agile Methodologies", icon: <GitBranch className="w-4 h-4" /> },
+    { name: "CI/CD", icon: <Repeat className="w-4 h-4" /> },
+    { name: "Security testing", icon: <Shield className="w-4 h-4" /> },
+    { name: "App testing", icon: <Smartphone className="w-4 h-4" /> },
+    { name: "Cross-browser Testing", icon: <Globe className="w-4 h-4" /> },
+    { name: "TestFlight", icon: <Plane className="w-4 h-4" /> },
+    { name: "API Testing", icon: <Network className="w-4 h-4" /> }
   ]
+
+  const certificates = [
+    {
+      id: 1,
+      title: "CS50's Introduction to Computer Science",
+      issuer: "Harvard University",
+      date: "2023",
+      description: "Comprehensive introduction to computer science and programming.",
+      image: "/HarvardX CS50x.jpg"
+    },
+    {
+      id: 2,
+      title: "CS50's Introduction to Programming with Python",
+      issuer: "Harvard University",
+      date: "2023",
+      description: "Advanced programming concepts using Python.",
+      image: "/HarvardX CS50P.jpg"
+    },
+    {
+      id: 3,
+      title: "Computer Science for Python Programming",
+      issuer: "Harvard University",
+      date: "2024",
+      description: "Mastery of computer science fundamentals and Python programming through HarvardX's program",
+      image: "/Professional Certificate Optimized.jpg"
+    },
+    {
+      id: 4,
+      title: "Master in SQL Server: From Beginner to Professional Level",
+      issuer: "Udemy",
+      date: "2023",
+      description: "Comprehensive mastery of SQL Server, covering database management, querying, and professional-level skills.",
+      image: "/SQL (1).jpg"
+    },
+    {
+      id: 5,
+      title: "Software Testing from Scratch: All-in-One MasterClass (2023)",
+      issuer: "Harvard University",
+      date: "2023",
+      description: "Complete training in software testing fundamentals, covering manual and automated testing techniques.",
+      image: "/TestingMC (1) (3).jpg"
+    },
+    {
+      id: 6,
+      title: "English Language Program Certification",
+      issuer: "Universidad Central de Venezuela ",
+      date: "2024",
+      description: "Completion of all eight levels of the English language program, achieving proficiency in English as a foreign language.",
+      image: "/CEBA.jpg"
+    },
+  ];
+  
 
   const allProjects = [
     {
@@ -200,7 +261,7 @@ export default function Component() {
       description: 'Developed and executed automated functional and regression tests using Selenium and Selenium IDE to ensure web application quality and compatibility across browsers. Integrated testing into the development cycle for efficient defect detection and resolution.', 
       images: ['/selenium.webp', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
       githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Selenium', 'Selenium IDE', 'JavaScript', 'Cross-Browser Testing Tools'],
+      technologies: ['Selenium', 'Selenium IDE', 'JavaScript', 'Cross-Browser Testing Tools', 'automation'],
       features: [
         'Automated functional and regression testing for a web application.',
         'Cross-browser testing to ensure compatibility across environments.',
@@ -273,14 +334,21 @@ export default function Component() {
       technologies: ["JMeter", "Apache JMeter", "Performance Testing", "Load Testing"],
       features: [
         "Created and executed performance test plans to simulate real-world user load.",
-    "Analyzed response times, throughput, and system performance metrics.",
-    "Identified and reported bottlenecks to improve application efficiency.",
-    "Automated performance testing for continuous integration workflows."
+        "Analyzed response times, throughput, and system performance metrics.",
+        "Identified and reported bottlenecks to improve application efficiency.",
+        "Automated performance testing for continuous integration workflows."
       ]
-  },
+    },
   ]
 
-  const visibleProjects = showAllProjects ? allProjects : allProjects.slice(0, 3)
+  const filteredProjects = allProjects.filter(project => {
+    if (selectedFilter === 'all') return true;
+    return project.technologies.some(tech => 
+      tech.toLowerCase().includes(selectedFilter.toLowerCase())
+    );
+  });
+
+  const visibleProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 3);
 
   const tools = [
     { 
@@ -377,7 +445,7 @@ export default function Component() {
     5: "/Zapvideo.mp4",
     3: "/Cucumber1.mp4",
     4: "/JenkinsVideoOp.mp4",
-    2: "/Csvideo1.mp4",
+    2: "/Csvideo2.mp4",
     6: "/JmetervidOp.mp4"
   }
 
@@ -386,8 +454,16 @@ export default function Component() {
     setIsFullScreen(true)
   }
 
+  const filters = [
+    { id: 'all', label: 'Todos', icon: <Search className="w-4 h-4" /> },
+    { id: 'api', label: 'API Testing', icon: <Network className="w-4 h-4" /> },
+    { id: 'automation', label: 'Automation', icon: <Terminal className="w-4 h-4" /> },
+    { id: 'security', label: 'Security', icon: <Shield className="w-4 h-4" /> },
+    { id: 'performance', label: 'Performance', icon: <Activity className="w-4 h-4" /> }
+  ]
+
   return (
-    (<div className={`min-h-screen bg-black text-white relative z-10 ${
+  <div className={`min-h-screen bg-black text-white relative z-10 ${
       isMobile ? 'bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]' :
         ''
     }`}>
@@ -443,7 +519,7 @@ export default function Component() {
           
           <nav className="hidden md:flex gap-2">
             <div className="bg-white/10 backdrop-blur-sm rounded-full p-1 flex gap-1">
-              {['about-me', 'skills', 'projects', 'experience', 'education', 'contact'].map((section) => (
+              {['projects', 'skills', 'experience', 'education', 'certifications', 'contact'].map((section) => (
                 <Button
                   key={section}
                   variant="ghost"
@@ -490,9 +566,9 @@ export default function Component() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-md p-4 md:hidden"
+                className="fixed top-[72px] left-0 right-0 bg-black/90 backdrop-blur-md p-4 md:hidden z-30"
               >
-                {['about-me', 'skills', 'projects', 'experience', 'education', 'contact'].map((section) => (
+                {['about-me', 'skills', 'projects', 'experience', 'education', 'certifications', 'contact'].map((section) => (
                   <Button
                     key={section}
                     variant="ghost"
@@ -512,28 +588,6 @@ export default function Component() {
           </div>
         </div>
       </header>
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-[72px] left-0 right-0 bg-black/90 backdrop-blur-md p-4 md:hidden z-30"
-          >
-            {['about-me', 'skills', 'projects', 'experience', 'education', 'contact'].map((section) => (
-              <Button
-                key={section}
-                variant="ghost"
-                size="sm"
-                className="w-full text-left text-gray-300 hover:text-white py-2"
-                onClick={() => scrollToSection(section)}
-              >
-                {section.charAt(0).toUpperCase() + section.slice(1).replace('-', ' ')}
-              </Button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
       <main className="container mx-auto px-4 pt-32 pb-24 space-y-32">
         <motion.section 
           id="about-me" 
@@ -543,7 +597,7 @@ export default function Component() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2 
-            className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
+            className="text-4xl md:text-6xl font-bold mb-4 leading-tight text-center"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -556,7 +610,7 @@ export default function Component() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           > 
-          I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, and I ensure quality and intuitive user experiences. After hours, I build my own projects.
+            I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, and I ensure quality and intuitive user experiences. After hours, I build my own projects.
           </motion.p>
           <motion.div
             className="flex flex-col items-center gap-6"
@@ -608,26 +662,6 @@ export default function Component() {
           </motion.div>
         </motion.section>
 
-        <motion.section 
-          id="skills" 
-          className="mb-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-3xl font-bold mb-6">Skills</h2>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <Badge 
-                key={skill} 
-                variant="secondary" 
-                className="text-sm bg-white/10 text-gray-300 hover:bg-white/20 transition-colors duration-200"
-              >
-                {skill}
-              </Badge>
-            ))}
-          </div>
-        </motion.section>
 
         <motion.section 
           id="projects" 
@@ -637,7 +671,25 @@ export default function Component() {
           transition={{ duration: 0.8 }}
           ref={projectsRef}
         >
-          <h2 className="text-3xl font-bold mb-8">Featured Projects</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
+          <div className="mb-6 flex flex-wrap gap-2 justify-center">
+            {filters.map((filter) => (
+              <Button
+                key={filter.id}
+                variant="outline"
+                size="sm"
+                className={`flex items-center gap-2 ${
+                  selectedFilter === filter.id 
+                    ? 'bg-white/20 text-white' 
+                    : 'bg-white/5 text-gray-400 hover:bg-white'
+                }`}
+                onClick={() => setSelectedFilter(filter.id)}
+              >
+                {filter.icon}
+                {filter.label}
+              </Button>
+            ))}
+          </div>
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             layout
@@ -653,62 +705,82 @@ export default function Component() {
                 className="relative group"
                 whileHover={isMobile ? {} : { scale: 1.05 }}
               >
-                 <Card className="overflow-hidden bg-white/5 border-white/10 h-full flex flex-col">
-                <CardHeader className="p-0 aspect-video relative overflow-hidden">
-                  <Image
-                    src={project.images[0]}
-                    alt={project.title}
-                    className="transition-all duration-300 md:filter md:grayscale md:group-hover:filter-none"
-                    fill
-                    sizes="100vw"
-                    style={{
-                      objectFit: "cover"
-                    }} /> 
-                </CardHeader>
-                <CardContent className="p-4 flex-1">
-                  <CardTitle className="text-white mb-2">{project.title}</CardTitle>
-                  <CardDescription className="text-gray-400 line-clamp-2">
-                    {project.description}
-                  </CardDescription>
-                </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Button onClick={() => openProjectDialog(index)} className="bg-white/10 hover:bg-white/20 text-white">
-                    View More
-                  </Button>
-                </CardFooter>
-              </Card>
+                <Card className="overflow-hidden bg-white/5 border-white/10 h-full flex flex-col">
+                  <CardHeader className="p-0 aspect-video relative overflow-hidden">
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      className="transition-all duration-300 md:filter md:grayscale md:group-hover:filter-none"
+                      fill
+                      sizes="100vw"
+                      style={{
+                        objectFit: "cover"
+                      }} /> 
+                  </CardHeader>
+                  <CardContent className="p-4 flex-1">
+                    <CardTitle className="text-white mb-2">{project.title}</CardTitle>
+                    <CardDescription className="text-gray-400 line-clamp-2">
+                      {project.description}
+                    </CardDescription>
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0">
+                    <Button onClick={() => openProjectDialog(index)} className="bg-white/10 hover:bg-white/20 text-white">
+                      View More
+                    </Button>
+                  </CardFooter>
+                </Card>
               </motion.div>
             ))}
           </motion.div>
-          <div className="flex justify-center mt-8">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Button 
-                onClick={() => {
-                  setShowAllProjects(!showAllProjects)
-                  if (showAllProjects) {
-                    scrollToSection('projects')
-                  }
-                }}
-                className="bg-white/10 hover:bg-white/20 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold"
+          {filteredProjects.length > 3 && (
+            <div className="flex justify-center mt-8">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                {showAllProjects ? (
-                  <motion.div
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: 180 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Minus size={24} />
-                  </motion.div>
-                ) : (
-                  <Plus size={24} />
-                )}
-              </Button>
-            </motion.div>
+                <Button 
+                  onClick={() => setShowAllProjects(!showAllProjects)}
+                  className="bg-white/10 hover:bg-white/20 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold"
+                >
+                  {showAllProjects ? (
+                    <motion.div
+                      initial={{ rotate: 0 }}
+                      animate={{ rotate: 180 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Minus size={24} />
+                    </motion.div>
+                  ) : (
+                    <Plus size={24} />
+                  )}
+                </Button>
+              </motion.div>
+            </div>
+          )}
+        </motion.section>
+
+        <motion.section 
+          id="skills" 
+          className="mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl font-bold mb-6 text-center">Skills</h2>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <Badge 
+                key={skill.name} 
+                variant="secondary" 
+                className="text-sm bg-white/10 text-gray-300 hover:bg-white/20 transition-colors duration-200 flex items-center gap-2"
+              >
+                {skill.icon}
+                {skill.name}
+              </Badge>
+            ))}
           </div>
         </motion.section>
+
         <motion.section 
           id="experience" 
           className="mb-16"
@@ -716,7 +788,7 @@ export default function Component() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-6">Experience</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center">Experience</h2>
           <div className="space-y-8">
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
@@ -762,7 +834,7 @@ export default function Component() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-6">Education</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center">Education</h2>
           <Card className="bg-white/5 border-white/10">
             <CardHeader>
               <CardTitle className="text-white">Bachelor of Engineering, Computer Science</CardTitle>
@@ -770,20 +842,89 @@ export default function Component() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-300">
-              Completed two-year study abroad with Instituto Universitario de Nuevas Profesiones University a comprehensive program in Computer Science, focusing on software development, algorithms, and data structures. Gained a strong foundation in programming languages and software engineering principles.
+                Completed two-year study abroad with Instituto Universitario de Nuevas Profesiones University a comprehensive program in Computer Science, focusing on software development, algorithms, and data structures. Gained a strong foundation in programming languages and software engineering principles.
               </p>
             </CardContent>
           </Card>
         </motion.section>
 
         <motion.section 
+        id="certifications" 
+        className="mb-16"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <h2 className="text-3xl font-bold">Certifications</h2>
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => setShowCertifications(!showCertifications)}
+            className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-200"
+          >
+            {showCertifications ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
+          </Button>
+        </div>
+        <AnimatePresence>
+          {showCertifications && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden" // Add this class
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {certificates.map((cert) => (
+                  <motion.div
+                    key={cert.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative group"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <Card className="overflow-hidden bg-white/5 border-white/10 h-full flex flex-col">
+                      <CardHeader className="p-0 relative overflow-hidden h-[250px] md:h-[282px]">
+                        <Image
+                          src={cert.image}
+                          alt={cert.title}
+                          className="transition-all duration-300 md:filter md:grayscale md:group-hover:filter-none"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          style={{
+                            objectFit: "cover"
+                          }}
+                        />
+                      </CardHeader>
+                      <CardContent className="p-4 flex-1">
+                        <CardTitle className="text-white mb-2">{cert.title}</CardTitle>
+                        <CardDescription className="text-gray-400">
+                          {cert.issuer} | {cert.date}
+                        </CardDescription>
+                        <p className="mt-2 text-sm text-gray-300">{cert.description}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.section>
+
+
+      <motion.section 
           id="contact" 
           className="mb-16"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold mb-6">Contact</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center">Contact</h2>
           <Card className="bg-white/5 border-white/10">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -850,7 +991,7 @@ export default function Component() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-1,8xl font-bold mb-6">Tools & Technologies used on this page</h2>
+          <h2 className="text-1,8xl font-bold mb-6 text-center">Tools & Technologies used on this page</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {tools.map((tool) => (
               <div
@@ -901,7 +1042,7 @@ export default function Component() {
                           <div className="flex items-center justify-center w-full h-full">
                             <span className="text-zinc-400">No video available</span>
                           </div>
-                          )}
+                        )}
                       </div>
                     </div>
                   </div>
@@ -997,7 +1138,7 @@ export default function Component() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>)
+    </div>
   );
 }
 
