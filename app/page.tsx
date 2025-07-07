@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog'
+import { ClipboardCheck, Target, ListChecks, BarChart3 } from 'lucide-react';
 
 const useIsClient = () => {
   const [isClient, setIsClient] = useState(false)
@@ -242,105 +243,98 @@ export default function Component() {
 
   const allProjects = [
     {
-      id: 1, 
-      title: 'API Testing with Postman', 
-      description: 'Used Postman to validate critical API endpoints by automating tests for HTTP methods (GET, POST, PATCH, DELETE), ensuring reliability, performance, and error handling.', 
-      images: ['/Postman.jpg', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Postman', 'JSON', 'API Testing Frameworks', 'Continuous Integration Tools'],
-      features: [
-        'Comprehensive test coverage for critical API endpoints.',
-        'Verification of data integrity and response consistency.',
-        'Automated monitoring and regression testing of endpoints.',
-        'Integration with CI/CD pipelines for seamless deployment validation.'
-      ]
-    },
-    {
-      id: 2, 
-      title: 'Automated Testing with Selenium', 
-      description: 'Developed and executed automated functional and regression tests using Selenium and Selenium IDE to ensure web application quality and compatibility across browsers. Integrated testing into the development cycle for efficient defect detection and resolution.', 
-      images: ['/selenium.webp', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Selenium', 'Selenium IDE', 'JavaScript', 'Cross-Browser Testing Tools', 'automation'],
-      features: [
-        'Automated functional and regression testing for a web application.',
-        'Cross-browser testing to ensure compatibility across environments.',
-        'Reusable and maintainable test scripts.',
-        'Integration of automated testing into the development lifecycle.'
-      ]
-    },
-    {
-      id: 5, 
-      title: 'Python Programming CS50P/CS50 Certificates', 
-      description: 'Earned certificates for completing Harvard’s CS50 Introduction to Computer Science and CS50’s Introduction to Programming with Python, gaining a solid foundation in computer science concepts and Python development.', 
-      images: ['/Professional Certificate Optimized.jpg', '/Professional Certificate Optimized.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Python', 'C', 'Data Structures', 'Algorithms', 'Web Development Basics'],
-      features: [
-        'Learned foundational computer science concepts, including algorithms and data structures.',
-        'Gained hands-on experience with Python programming for real-world applications.',
-        'Explored web development basics, including front-end and back-end concepts.',
-        'Completed multiple programming assignments and projects to reinforce learning.'
-      ]
-    },
-    {
-      id: 4, 
-      title: 'Behavior-Driven Testing with Cucumber', 
-      description: 'Implemented behavior-driven development (BDD) tests using Cucumber to bridge communication between technical and non-technical stakeholders while ensuring software quality.', 
-      images: ['/cucumber.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Cucumber', 'Gherkin', 'Java', 'Behavior-Driven Development (BDD)'],
-      features: [
-        'Designed and executed BDD test scenarios with Gherkin syntax.',
-        'Improved collaboration between development teams and stakeholders.',
-        'Ensured software meets business requirements through clear documentation.',
-        'Integrated with test automation frameworks for efficient testing.'
-      ]
-    },
-    {
-      id: 6, 
-      title: 'Continuous Integration Pipeline', 
-      description: 'Streamlined CI/CD pipeline implementation, automating build, test, and deployment processes for faster and more reliable software delivery. Video demo will be added soon.', 
-      images: ['/Jenkins.webp', '/new-image-6.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['Appium', 'Cucumber', 'Java', 'TestNG', 'Jenkins'],
-      features: [
-        'Designed and managed automated CI/CD pipelines.',
-        'Integrated Jenkins with version control systems like Git.',
-        'Automated build, test, and deployment workflows.',
-      ]
-    },
-    { 
-      id: 3, 
-      title: 'Application Security Testing with OWASP Tools', 
-      description: 'Utilized OWASP tools to identify and mitigate security vulnerabilities in web applications, ensuring compliance with best practices for secure software development.  Video demo will be added soon.', 
-      images: ['/owasp (1).png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ['OWASP ZAP', 'Burp Suite', 'Web Security', 'Penetration Testing'],
-      features: [
-        'Performed security scans to detect vulnerabilities in web applications.',
-        'Analyzed application behavior and recommended security improvements.',
-        'Ensured compliance with OWASP Top 10 security guidelines.',
-        'Conducted penetration testing to identify and mitigate risks.',
-        'Enhanced application security through proactive testing.'
-      ]
-    },
-    {
-      id: 7, 
-      title: 'Performance Testing with JMeter', 
-      description: "Conducted performance and load testing using JMeter to ensure application stability and responsiveness under varying user loads.",
-      images: ['/Jmeter.png', '/new-image-1.jpg', '/placeholder.svg?height=400&width=600'],
-      githubUrl: 'https://github.com/Sebastiandg30',
-      technologies: ["JMeter", "Apache JMeter", "Performance Testing", "Load Testing"],
-      features: [
-        "Created and executed performance test plans to simulate real-world user load.",
-        "Analyzed response times, throughput, and system performance metrics.",
-        "Identified and reported bottlenecks to improve application efficiency.",
-        "Automated performance testing for continuous integration workflows."
-      ]
-    },
-  ]
+  id: 1,
+  title: 'Stage 1: Manual QA Strategy – System Discovery',
+  description: 'This project represents the foundational stage of a real QA pipeline. The goal was to simulate the experience of joining a new company or project where no previous QA process exists — requiring full exploration, planning, and documentation from scratch.',
+  images: ['/manual-testing.jpg', '/parabank-test-flow.jpg'],
+  githubUrl: 'https://github.com/Sebastiandg30',
+  technologies: ['Exploratory Testing', 'Test Plan', 'Excel', 'Jira', 'UI Review'],
 
+  features: [
+    'Performed <strong>exploratory testing</strong> to understand the application and identify the most critical user flows and risk areas.',
+    'Created a <strong>basic Test Plan</strong> defining scope, objectives, environment, tools, and types of tests (functional, UI, usability).',
+    'Designed test cases and scenarios using <strong>Excel</strong>, mapping user stories to step-by-step validations.',
+    'Executed manual test cases, reporting and categorizing bugs in Jira, including security, UI, and functional issues.',
+    'Identified inconsistencies such as <strong>text mismatches</strong> (e.g., “Register” vs “Signing up”), lack of input validation, and critical failures like login restrictions and broken transfers.'
+  ],
+
+  result: [
+    'Established an initial <strong>QA baseline</strong> for the project, identifying major risks and defining the first testing structure.',
+    'Discovered <strong>multiple high-impact bugs</strong> affecting core flows like registration, login, and fund transfers.',
+    'Created detailed documentation that can be reused and evolved for future <strong>API and UI automation testing</strong>.',
+    'Simulated a real onboarding scenario where a QA joins a project with no prior test coverage and builds everything from the ground up.'
+  ]
+},
+  {
+  id: 2,
+  title: 'Stage 2: API Validation with Postman',
+  description: 'This project simulates the creation of a reliable and reusable API test suite for a real-world application, covering critical endpoints like login and account retrieval. The tests were designed to support CI/CD pipelines by enabling fast feedback on API functionality.',
+  images: ['/postman.jpg'],
+  githubUrl: 'https://github.com/Sebastiandg30',
+  technologies: ['Postman', 'Swagger', 'JSON', 'CI/CD', 'Environment Variables'],
+
+  features: [
+    'Created a <strong>modular Postman collection</strong> covering critical flows like user login and account access using parameterized requests.',
+    'Designed automated tests that validate <strong>status codes</strong>, extract values from XML responses, and assert key fields like customer ID.',
+    'Utilized <strong>Swagger documentation</strong> to understand request structures, response formats, and authentication methods.',
+    'Implemented <strong>Postman scripting</strong> to handle XML-to-JSON conversion and environment variable injection for chained requests.',
+    'Prepared the test collection for integration into a <strong>CI/CD pipeline</strong> to enable automatic API validation on changes to staging or main branches.'
+  ],
+
+  result: [
+    'Built a <strong>reusable and scalable</strong> API testing foundation for future regression coverage.',
+    'Enabled automated validation of key API behaviors with <strong>zero manual input</strong>, reducing testing time dramatically.',
+    'Demonstrated how consistent and well-structured API tests can <strong>increase backend stability</strong> and developer confidence.',
+    'Positioned the QA process for future <strong>comprehensive API coverage</strong> as the application grows.'
+  ]
+},
+ {
+  id: 3,
+  title: 'Stage 3: Performance Testing with JMeter',
+  description: 'This project introduces a basic yet realistic performance test to simulate multiple users interacting with a backend endpoint concurrently. The goal is to identify how the system behaves under load and to surface potential performance issues early in development.',
+  images: ['/jmeter.png'],
+  githubUrl: 'https://github.com/Sebastiandg30',
+  technologies: ['JMeter', 'Load Testing', 'Summary Report', 'Thread Group'],
+
+  features: [
+    'Configured a <strong>Thread Group</strong> of 20 virtual users running for 30 seconds with a controlled ramp-up time.',
+    'Simulated high concurrency by sending parallel <strong>HTTP GET requests</strong> to a login endpoint with test credentials.',
+    'Used listeners such as <strong>Summary Report</strong> and <strong>View Results in Table</strong> to analyze latency, throughput, and error rates.',
+    'Focused on detecting response time delays, failed requests, and system saturation during short bursts of high activity.',
+    'Test configuration designed to be reusable and extendable for future stress or endurance scenarios.'
+  ],
+
+  result: [
+    'Successfully simulated <strong>high user load</strong> and observed backend behavior under pressure.',
+    'Identified the importance of setting realistic ramp-up periods and thread lifetime to replicate real-world user access patterns.',
+    'Set a foundation for performance monitoring that helps mitigate the risk of <strong>server overload or API timeouts</strong> in production.',
+    'Highlighted how performance tests fit naturally as a middle layer between API validation and full UI testing.'
+  ]
+},
+   {
+  id: 4,
+  title: 'Stage 4: UI Automation with Selenium',
+  description: 'This project focuses on automating the most critical user flows of the ParaBank application through a modular and maintainable Selenium framework. It simulates real-world practices like regression testing and CI integration after each code push.',
+  images: ['/selenium.webp'],
+  githubUrl: 'https://github.com/Sebastiandg30',
+  technologies: ['Selenium', 'Python', 'Pytest', 'POM', 'GitHub Actions'],
+
+  features: [
+    'Set up a dedicated automation folder structure using <strong>virtual environments</strong> to isolate dependencies.',
+    'Developed a <strong>Page Object Model (POM)</strong> structure with `pages/` and `tests/` folders to keep logic and execution clean and maintainable.',
+    'Built a UI test for the login flow using <strong>Pytest + Selenium WebDriver</strong>, validating visible page elements after login.',
+    'Used <strong>GitHub Actions</strong> to run UI tests automatically after pushes to staging/main branches.',
+    'Detected a critical issue where the <strong>UI login fails despite a 200 response from the API</strong>, proving that backend success doesn’t guarantee frontend integrity.'
+  ],
+
+  result: [
+    'Created a <strong>scalable UI automation framework</strong> that supports future test cases and components.',
+    'Exposed a real application bug through <strong>automated UI regression</strong>, enabling better coverage than API testing alone.',
+    'Reinforced the value of frontend testing by detecting inconsistencies invisible to API layers.',
+    'Showcased automation skills aligned with modern QA practices including <strong>CI/CD pipelines and structured design patterns</strong>.'
+  ]
+},
+  ] 
   const filteredProjects = allProjects.filter(project => {
     if (selectedFilter === 'all') return true;
     return project.technologies.some(tech => 
@@ -442,13 +436,10 @@ export default function Component() {
 
 
   const projectVideos: { [key: number]: string } = {
-    0: "/Postman.mp4",
-    1: "Seleniumvideo1.mp4",
-    5: "/Zapvideo.mp4",
-    3: "/Cucumber1.mp4",
-    4: "/JenkinsVideoOp.mp4",
-    2: "/Csvideo2.mp4",
-    6: "/JmetervidOp.mp4"
+    0: "/ManualTesting.mp4",
+    1: "/Postman.mp4",
+    2: "/Jmeter.mp4",
+    3: "/Selenium.mp4",
   }
 
   const handleFullScreen = (type: 'image' | 'video', src: string) => {
@@ -457,11 +448,11 @@ export default function Component() {
   }
 
   const filters = [
-    { id: 'all', label: 'Todos', icon: <Search className="w-4 h-4" /> },
-    { id: 'api', label: 'API Testing', icon: <Network className="w-4 h-4" /> },
-    { id: 'automation', label: 'Automation', icon: <Terminal className="w-4 h-4" /> },
-    { id: 'security', label: 'Security', icon: <Shield className="w-4 h-4" /> },
-    { id: 'performance', label: 'Performance', icon: <Activity className="w-4 h-4" /> }
+    { id: 'all', label: 'All', icon: <Search className="w-4 h-4" /> },
+    { id: 'Test Plan', label: 'Manual Testing', icon: <ClipboardCheck className="w-4 h-4" /> },
+    { id: 'Postman', label: 'API Testing', icon: <Network className="w-4 h-4" /> },
+    { id: 'JMeter', label: 'Performance', icon: <Activity className="w-4 h-4" /> },
+    { id: 'Selenium', label: 'UI Automation', icon: <Terminal className="w-4 h-4" /> },
   ]
 
   return (
@@ -599,12 +590,12 @@ export default function Component() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2 
-            className="text-4xl md:text-6xl font-bold mb-4 leading-tight text-center"
+            className="text-4xl md:text-4xl font-bold mb-4 leading-tight text-center"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            QA Engineer
+           Building Reliable Digital Products
           </motion.h2>
           <motion.p 
             className="text-xl mb-4 text-gray-400 max-w-2xl mx-auto"
@@ -612,7 +603,7 @@ export default function Component() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           > 
-            I am Sebastian Gómez, a <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">QA Engineer</span>, and I ensure quality and intuitive user experiences. After hours, I build my own projects.
+       I create <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent font-medium">robust</span> testing strategies and automation frameworks to ensure digital products are functional, secure, and trustworthy.
           </motion.p>
           <motion.div
             className="flex flex-col items-center gap-6"
@@ -632,7 +623,7 @@ export default function Component() {
             <Button 
               variant="outline" 
               className="flex items-center gap-2 bg-transparent border-slate-300 dark:border-slate-300 text-slate-300 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-300"
-              onClick={() => window.open('/Sebastian Gomez CV.pdf')}
+              onClick={() => window.open('/CV Sebastian Gómez.pdf')}
             >
               <FileText className="w-4 h-4" />
               Download CV
@@ -673,7 +664,8 @@ export default function Component() {
           transition={{ duration: 0.8 }}
           ref={projectsRef}
         >
-          <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center">Complete QA Pipeline: From Manual Testing to Full Automation</h2>
+          <h2 className="text-1xl mb-8 text-center">This project series walks through a realistic, step-by-step QA process — starting from manual exploration and evolving into automated API, performance, and UI testing. Together, they form a complete testing pipeline for scalable and reliable software delivery.</h2>
           <div className="mb-6 flex flex-wrap gap-2 justify-center">
             {filters.map((filter) => (
               <Button
@@ -783,7 +775,7 @@ export default function Component() {
           </div>
         </motion.section>
 
-        <motion.section 
+      <motion.section 
           id="experience" 
           className="mb-16"
           initial={{ opacity: 0, y: 50 }}
@@ -794,41 +786,57 @@ export default function Component() {
           <div className="space-y-8">
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">Mid QA Engineer</CardTitle>
-                <CardDescription className="text-gray-400">NetForemost | August - Present 2024 (Full-Time) </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Implemented Test-Driven Development (TDD) in projects to enhance code quality and ensure robust test coverage.</li>
-                  <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly reducing manual testing effort.</li>
-                  <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
-                  <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection and reducing production issues.</li>
-                  <li>Validated test environments, generated reports, and classified software quality issues, leading to a more streamlined testing process.</li>
-                  <li>Worked on several projects, ensuring efficient testing processes and adaptability to varying project needs.</li>
-                  <li>Regularly communicated with American Product Owners (POs) and clients during demos and daily standups in English, fostering clear understanding and alignment on project goals.</li>
-                </ul>
-
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/5 border-white/10">
-              <CardHeader>
                 <CardTitle className="text-white">QA Engineer</CardTitle>
-                <CardDescription className="text-gray-400">Uemura | January - August 2024 (Part-time)</CardDescription>
+                <CardDescription className="text-gray-400">3MIT | 04/2025 - Present (Full-Time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Took a buggy and problematic production environment and worked on delivering a more stable and reliable version, improving overall system performance and user satisfaction.</li>
-                  <li>Utilized positive and negative test scenarios for thorough system coverage, leading to an increase in early defect detection and a reduction in critical bugs in production.</li>
-                  <li>Developed and maintained scalable test automation frameworks and manual testing processes, reducing testing time.</li>
-                  <li>Triaged, diagnosed, reported, tracked, and resolved software quality issues.</li>
-                  <li>Communicated actively across multiple teams, ensuring cohesion and collaboration, which improved team productivity and reduced project delivery time.</li>
+                   <li>Execute manual testing for customized Odoo-based ERP solutions tailored to national and international clients across various industries.</li>
+                   <li>Lead testing of finance-heavy modules, including invoicing and accounting workflows, ensuring compliance with client-specific and local tax regulations.</li>
+                   <li>Validate modifications across various Odoo modules such as Contacts, Accounting, Sales, Purchases, and Portal User Management.</li>
+                   <li>Perform functional, regression, and exploratory testing to verify business logic, user flows, and system behavior after client-driven changes.</li>
+                   <li>Handle real business data in CSV, xlsx, XML, and PDF formats to validate accuracy, expected structure, and proper integration across systems.</li>
+                   <li>Create and maintain detailed test cases based on client specifications and existing functionality; flag and document issues for the development team.</li>
+                   <li>Contribute to process improvement by adapting QA strategies to the dynamic nature of ERP customization for large-scale business operations.</li>
+                </ul>
+              </CardContent>
+               </Card>
+               <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white">QA Automation Engineer</CardTitle>
+                <CardDescription className="text-gray-400">Netforemost| 08/2024 - 04/2025 (Full-time)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Implemented Test-Driven Development (TDD) in projects to enhance code quality and ensure robust test coverage.</li>
+                    <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly reducing manual testing effort.</li>
+                    <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
+                    <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection and reducing production issues.</li>
+                    <li>Validated test environments, generated reports, and classified software quality issues, leading to a more streamlined testing process.</li>
+                    <li>Worked on several projects, ensuring efficient testing processes and adaptability to varying project needs.</li>
+                    <li>Regularly communicated with American Product Owners (POs) and clients during demos and daily standups in English, fostering clear understanding and alignment on project goals.</li>
                 </ul>
               </CardContent>
             </Card>
+               <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white">Manual & Automation QA Tester</CardTitle>
+                <CardDescription className="text-gray-400">Uemura | 01/2024 - 08/2024 (Part-time)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                    <li>Took a buggy and problematic production environment and worked on delivering a more stable and reliable version, improving overall system performance and user satisfaction.</li>
+                    <li>Utilized positive and negative test scenarios for thorough system coverage, leading to an increase in early detection and a reduction in critical bugs in production.</li>
+                    <li>Developed and maintained scalable test automation frameworks and manual testing processes, reducing testing time.</li>
+                    <li>Triaged, diagnosed, reported, tracked, and resolved software quality issues.</li>
+                    <li>Communicated actively across multiple teams, ensuring cohesion and collaboration, which improved team productivity and reduced project delivery time.</li>
+                </ul>
+              </CardContent>
+            </Card>
+            
           </div>
         </motion.section>
-
+        
         <motion.section 
           id="education" 
           className="mb-16"
@@ -1050,41 +1058,66 @@ export default function Component() {
                   </div>
                   
                   <div className="md:w-1/2 space-y-6 px-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Project Overview</h3>
-                      <p className="text-zinc-400 leading-relaxed">
-                        {allProjects[selectedProjectIndex].description}
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Technologies Used</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {allProjects[selectedProjectIndex].technologies.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+  <div>
+    <h3 className="flex items-center text-lg font-semibold text-white mb-2">
+      <Target className="h-5 w-5 mr-2 text-blue-400" />
+      Challenge
+    </h3>
+    {/* AÑADIMOS CLASES DE BLOCKQUOTE PARA ESTILO */}
+    <p className="text-zinc-400 leading-relaxed border-l-4 border-blue-400 pl-4 italic text-sm">
+      {allProjects[selectedProjectIndex].description}
+    </p>
+  </div>
+  
+  <div>
+    <h3 className="flex items-center text-lg font-semibold text-white mb-2">
+      <ListChecks className="h-5 w-5 mr-2 text-green-400" />
+      Process
+    </h3>
+    <ul className="list-disc list-inside text-zinc-400 space-y-2 text-sm">
+      {/* USAMOS dangerouslySetInnerHTML PARA RENDERIZAR LAS NEGRITAS */}
+      {allProjects[selectedProjectIndex].features.map((feature, index) => (
+        <li key={index} dangerouslySetInnerHTML={{ __html: feature }} />
+      ))}
+    </ul>
+  </div>
 
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Key Features</h3>
-                      <ul className="list-disc list-inside text-zinc-400">
-                        {allProjects[selectedProjectIndex].features.map((feature, index) => (
-                          <li key={index}>{feature}</li>
-                        ))}
-                      </ul>
-                    </div>
+  {/* Verificamos si la propiedad 'result' existe antes de mostrarla */}
+  {allProjects[selectedProjectIndex].result && (
+    <div>
+      <h3 className="flex items-center text-lg font-semibold text-white mb-2">
+        <BarChart3 className="h-5 w-5 mr-2 text-purple-400" />
+        Result
+      </h3>
+      <ul className="list-disc list-inside text-zinc-400 space-y-2 text-sm">
+        {/* USAMOS dangerouslySetInnerHTML AQUÍ TAMBIÉN */}
+        {allProjects[selectedProjectIndex].result.map((res, index) => (
+          <li key={index} dangerouslySetInnerHTML={{ __html: res }} />
+        ))}
+      </ul>
+    </div>
+  )}
 
-                    <Button 
-                      onClick={() => window.open(allProjects[selectedProjectIndex].githubUrl, '_blank')}
-                      className="bg-white text-black hover:bg-gray-200"
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      View on GitHub
-                    </Button>
-                  </div>
+  <div>
+    <h3 className="text-lg font-semibold text-white mb-2">Technologies Used</h3>
+    <div className="flex flex-wrap gap-2">
+      {allProjects[selectedProjectIndex].technologies.map((tech) => (
+        <Badge key={tech} variant="secondary" className="bg-zinc-800 text-zinc-300 hover:bg-zinc-700 transition-colors">
+          {tech}
+        </Badge>
+      ))}
+    </div>
+  </div>
+
+  <Button 
+    onClick={() => window.open(allProjects[selectedProjectIndex].githubUrl, '_blank')}
+    className="bg-white text-black hover:bg-gray-200 w-full"
+  >
+    <Github className="mr-2 h-4 w-4" />
+    View on GitHub
+  </Button>
+</div>
+
                 </div>
               </div>
 
@@ -1110,7 +1143,7 @@ export default function Component() {
           )}
         </DialogContent>
       </Dialog>
-      <Dialog open={isFullScreen} onOpenChange={(open) => !open && setIsFullScreen(false)}>
+      <Dialog open={isFullScreen} onOpenChange={(open: boolean) => !open && setIsFullScreen(false)}>
         <DialogContent className="max-w-[95vw] w-full max-h-[95vh] h-full p-0 bg-black">
           <DialogTitle className="sr-only">Full Screen Content</DialogTitle>
           <div className="relative w-full h-full flex items-center justify-center">

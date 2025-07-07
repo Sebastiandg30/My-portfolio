@@ -35,9 +35,10 @@
     "tooltip": "^1.6.1"
   },
   "devDependencies": {
-    "@types/node": "^20.17.9",
-    "@types/react": "^18.3.14",
-    "@types/react-dom": "^18.3.2",
+    "@types/json5": "^0.0.30",
+    "@types/node": "^20.19.0",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",
