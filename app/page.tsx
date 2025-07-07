@@ -269,7 +269,7 @@ export default function Component() {
   id: 2,
   title: 'Stage 2: API Validation with Postman',
   description: 'This project simulates the creation of a reliable and reusable API test suite for a real-world application, covering critical endpoints like login and account retrieval. The tests were designed to support CI/CD pipelines by enabling fast feedback on API functionality.',
-  images: ['/postman.jpg'],
+  images: ['/Postman.jpg'],
   githubUrl: 'https://github.com/Sebastiandg30',
   technologies: ['Postman', 'Swagger', 'JSON', 'CI/CD', 'Environment Variables'],
 
@@ -292,7 +292,7 @@ export default function Component() {
   id: 3,
   title: 'Stage 3: Performance Testing with JMeter',
   description: 'This project introduces a basic yet realistic performance test to simulate multiple users interacting with a backend endpoint concurrently. The goal is to identify how the system behaves under load and to surface potential performance issues early in development.',
-  images: ['/jmeter.png'],
+  images: ['/Jmeter.png'],
   githubUrl: 'https://github.com/Sebastiandg30',
   technologies: ['JMeter', 'Load Testing', 'Summary Report', 'Thread Group'],
 
