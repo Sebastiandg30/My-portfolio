@@ -1,18 +1,30 @@
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export function middleware(req: Request) {
+export function middleware(req: NextRequest) {
   const SAFE = process.env.NEXT_PUBLIC_UPWORK_MODE === '1'
   if (!SAFE) return NextResponse.next()
 
-  const url = new URL(req.url)
-  const path = url.pathname.toLowerCase()
+  const res = NextResponse.next()
+  res.headers.set('X-Robots-Tag', 'noindex, nofollow')
 
-  if (path.endsWith('.pdf') || path.includes('resume') || path.includes('cv')) {
-    url.pathname = '/upwork' // o tu landing limpia
+  const { pathname } = req.nextUrl
+  const lower = pathname.toLowerCase()
+
+  if (
+    lower.endsWith('.pdf') ||
+    lower.includes('/contact') ||
+    lower.includes('/resume') ||
+    lower.includes('/cv')
+  ) {
+    const url = req.nextUrl.clone()
+    url.pathname = '/upwork' 
     return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  return res
 }
 
-export const config = { matcher: ['/:path*'] }
+export const config = {
+  matcher: ['/:path*'],
+}
