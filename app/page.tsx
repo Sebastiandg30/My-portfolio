@@ -804,24 +804,24 @@ export default function Component() {
                <Card className="bg-white/5 border-white/10">
               <CardHeader>
                 <CardTitle className="text-white">QA Engineer/Business Analyst</CardTitle>
-                <CardDescription className="text-gray-400">Salmonlabs| 05/2025 - 08/2025 (Full-Time)</CardDescription>
+                <CardDescription className="text-gray-400">Salmonlabs | 05/2025 - 08/2025 (Full-Time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
                    <li>Collect, enrich, and verify targeted contacts/companies per client criteria using LinkedIn Sales Navigator, Google, company sites, directories, registries, and news.</li>
                    <li>Build repeatable extraction pipelines (API calls/scraping → parsing → QC → delivery) and track progress/SLAs.</li>
+                   <li>Write and maintain Python scripts to automate ingestion, transforms, and validations; generate audit-ready reports.</li>
                    <li>Apply ChatGPT API and other AI to review script flags, distinguish false positives/edge cases, and speed review cycles.</li>
                    <li>Process large CSV/XLSX datasets: enforce schema, clean, dedupe, normalize, and reconcile conflicting fields.</li>
+                   <li>Utilized IA's to create, review, search/scrap data and fix CSV/XLSX files, ensuring data integrity and consistency.</li>
                    <li>Use Postman to hit endpoints, trigger/monitor automated runs, inspect logs, and triage failures/timeouts.</li>
-                   <li>Write and maintain Python scripts to automate ingestion, transforms, and validations; generate audit-ready reports.</li>
-                   <li>Contribute to process improvement by adapting QA strategies to the dynamic nature of ERP customization for large-scale business operations.</li>
                 </ul>
               </CardContent>
                </Card>
                <Card className="bg-white/5 border-white/10">
               <CardHeader>
                 <CardTitle className="text-white">QA Automation Engineer</CardTitle>
-                <CardDescription className="text-gray-400">Netforemost| 08/2024 - 04/2025 (Full-time)</CardDescription>
+                <CardDescription className="text-gray-400">Netforemost | 08/2024 - 04/2025 (Full-time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
