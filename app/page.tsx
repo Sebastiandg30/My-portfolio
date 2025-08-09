@@ -813,7 +813,7 @@ export default function Component() {
                    <li>Write and maintain Python scripts to automate ingestion, transforms, and validations; generate audit-ready reports.</li>
                    <li>Apply ChatGPT API and other AI to review script flags, distinguish false positives/edge cases, and speed review cycles.</li>
                    <li>Process large CSV/XLSX datasets: enforce schema, clean, dedupe, normalize, and reconcile conflicting fields.</li>
-                   <li>Utilized IA's to create, review, search/scrap data and fix CSV/XLSX files, ensuring data integrity and consistency.</li>
+                   <li>Utilized IA&#39;s to create, review, search/scrap data and fix CSV/XLSX files, ensuring data integrity and consistency.</li>
                    <li>Use Postman to hit endpoints, trigger/monitor automated runs, inspect logs, and triage failures/timeouts.</li>
                 </ul>
               </CardContent>
