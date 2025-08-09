@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-
+import UpworkBanner from '../components/ui/UpworkBanner'
 
 export const metadata: Metadata = {
   title: 'Sebastian Gomez Portfolio',
@@ -14,12 +14,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const SAFE = process.env.NEXT_PUBLIC_UPWORK_MODE === '1'
+
   return (
-    <html lang="en">
-      <head>
-        <title>Sebastian Gomez Portfolio</title>
-      </head>
+    <html lang="en" data-upwork-safe={SAFE ? '1' : '0'}>
       <body>
+        {SAFE && <UpworkBanner />}
         {children}
         <SpeedInsights />
         <Analytics />
@@ -27,4 +27,5 @@ export default function RootLayout({
     </html>
   )
 }
+
 
