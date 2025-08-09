@@ -803,6 +803,23 @@ export default function Component() {
                </Card>
                <Card className="bg-white/5 border-white/10">
               <CardHeader>
+                <CardTitle className="text-white">QA Engineer</CardTitle>
+                <CardDescription className="text-gray-400">3MIT | 04/2025 - Present (Full-Time)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                   <li>Collect, enrich, and verify targeted contacts/companies per client criteria using LinkedIn Sales Navigator, Google, company sites, directories, registries, and news.</li>
+                   <li>Build repeatable extraction pipelines (API calls/scraping → parsing → QC → delivery) and track progress/SLAs.</li>
+                   <li>Apply ChatGPT API and other AI to review script flags, distinguish false positives/edge cases, and speed review cycles.</li>
+                   <li>Process large CSV/XLSX datasets: enforce schema, clean, dedupe, normalize, and reconcile conflicting fields.</li>
+                   <li>Use Postman to hit endpoints, trigger/monitor automated runs, inspect logs, and triage failures/timeouts.</li>
+                   <li>Write and maintain Python scripts to automate ingestion, transforms, and validations; generate audit-ready reports.</li>
+                   <li>Contribute to process improvement by adapting QA strategies to the dynamic nature of ERP customization for large-scale business operations.</li>
+                </ul>
+              </CardContent>
+               </Card>
+               <Card className="bg-white/5 border-white/10">
+              <CardHeader>
                 <CardTitle className="text-white">QA Automation Engineer</CardTitle>
                 <CardDescription className="text-gray-400">Netforemost| 08/2024 - 04/2025 (Full-time)</CardDescription>
               </CardHeader>
@@ -848,7 +865,7 @@ export default function Component() {
           <Card className="bg-white/5 border-white/10">
             <CardHeader>
               <CardTitle className="text-white">Bachelor of Engineering, Computer Science</CardTitle>
-              <CardDescription className="text-gray-400">Instituto Universitario de Nuevas Profesiones | 2023 - 2025</CardDescription>
+              <CardDescription className="text-gray-400">Instituto Universitario de Nuevas Profesiones | 2023 - 2026</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-gray-300">
