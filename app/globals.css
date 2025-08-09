@@ -69,10 +69,6 @@
 :root[data-upwork-safe="1"] .social-links {
   display: none !important;
 }
-
-:root[data-upwork-safe="1"] body {
-  padding-top: 36px; /* ajusta si tu navbar es más alta */
-}
 :root[data-upwork-safe="1"] .social-links {
   display: none !important;
   visibility: hidden !important;

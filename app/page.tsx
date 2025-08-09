@@ -503,7 +503,7 @@ export default function Component() {
               <Button 
                 variant="outline" 
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-none rounded-full pl-8 pr-6 py-2 shadow-lg"
-                onClick={() => window.open('https://www.linkedin.com/in/sebastiangomez30/', '_blank')}
+                onClick={() => window.open('https://www.upwork.com/freelancers/~01797400cf1c137fb1', '_blank')}
               >
                 Available for projects
               </Button>
