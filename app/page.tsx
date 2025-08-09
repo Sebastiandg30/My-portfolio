@@ -247,7 +247,7 @@ export default function Component() {
   title: 'Stage 1: Manual QA Strategy – System Discovery',
   description: 'This project represents the foundational stage of a real QA pipeline. The goal was to simulate the experience of joining a new company or project where no previous QA process exists — requiring full exploration, planning, and documentation from scratch.',
   images: ['/manual-testing.jpg', '/parabank-test-flow.jpg'],
-  githubUrl: 'https://github.com/Sebastiandg30',
+  githubUrl: '',
   technologies: ['Exploratory Testing', 'Test Plan', 'Excel', 'Jira', 'UI Review'],
 
   features: [
@@ -270,7 +270,7 @@ export default function Component() {
   title: 'Stage 2: API Validation with Postman',
   description: 'This project simulates the creation of a reliable and reusable API test suite for a real-world application, covering critical endpoints like login and account retrieval. The tests were designed to support CI/CD pipelines by enabling fast feedback on API functionality.',
   images: ['/Postman.jpg'],
-  githubUrl: 'https://github.com/Sebastiandg30',
+  githubUrl: '',
   technologies: ['Postman', 'Swagger', 'JSON', 'CI/CD', 'Environment Variables'],
 
   features: [
@@ -293,7 +293,7 @@ export default function Component() {
   title: 'Stage 3: Performance Testing with JMeter',
   description: 'This project introduces a basic yet realistic performance test to simulate multiple users interacting with a backend endpoint concurrently. The goal is to identify how the system behaves under load and to surface potential performance issues early in development.',
   images: ['/Jmeter.png'],
-  githubUrl: 'https://github.com/Sebastiandg30',
+  githubUrl: '',
   technologies: ['JMeter', 'Load Testing', 'Summary Report', 'Thread Group'],
 
   features: [
@@ -316,7 +316,7 @@ export default function Component() {
   title: 'Stage 4: UI Automation with Selenium',
   description: 'This project focuses on automating the most critical user flows of the ParaBank application through a modular and maintainable Selenium framework. It simulates real-world practices like regression testing and CI integration after each code push.',
   images: ['/selenium.webp'],
-  githubUrl: 'https://github.com/Sebastiandg30',
+  githubUrl: '',
   technologies: ['Selenium', 'Python', 'Pytest', 'POM', 'GitHub Actions'],
 
   features: [
