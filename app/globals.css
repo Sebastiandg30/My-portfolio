@@ -58,11 +58,21 @@
   }
 }
 
+/* Oculta enlaces externos, contacto y descargas en modo seguro */
 :root[data-upwork-safe="1"] a[href^="http"],
-:root[data-upwork-safe="1"] a[href^="/contact"],
 :root[data-upwork-safe="1"] a[href*="contact"],
+:root[data-upwork-safe="1"] a[href$=".pdf"],
+:root[data-upwork-safe="1"] a[href*="resume"],
+:root[data-upwork-safe="1"] a[href*="cv"],
 :root[data-upwork-safe="1"] a[href^="mailto:"],
 :root[data-upwork-safe="1"] a[href^="tel:"],
+:root[data-upwork-safe="1"] .social-links {
+  display: none !important;
+}
+
+:root[data-upwork-safe="1"] body {
+  padding-top: 36px; /* ajusta si tu navbar es más alta */
+}
 :root[data-upwork-safe="1"] .social-links {
   display: none !important;
   visibility: hidden !important;

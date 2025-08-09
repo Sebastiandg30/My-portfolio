@@ -1,27 +1,35 @@
 'use client'
 import { useEffect } from 'react'
 
+const emailRe = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i
+const badHrefRe = /(mailto:|tel:|contact|resume|cv|\.pdf($|\?))/i
+
 export default function SanitizeLinks() {
   useEffect(() => {
     const SAFE = process.env.NEXT_PUBLIC_UPWORK_MODE === '1'
     if (!SAFE) return
 
-    const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('a'))
-    const badRe = /(mailto:|tel:|contact|resume|cv|wa\.me|whatsapp|t\.me|telegram|instagram|facebook|x\.com|calendly|discord|linktr\.ee)/i
-
-    anchors.forEach(a => {
+    // 1) Reemplaza <a> peligrosos por <span>
+    document.querySelectorAll<HTMLAnchorElement>('a').forEach(a => {
       const href = a.getAttribute('href') || ''
       const isExternal = /^https?:\/\//i.test(href)
-      const dangerous = isExternal || badRe.test(href)
-
+      const dangerous = isExternal || badHrefRe.test(href)
       if (dangerous) {
         const span = document.createElement('span')
-        // Evita dejar la URL en texto visible
-        span.textContent = a.textContent && a.textContent.match(/^https?:\/\//i)
-          ? 'External link (disabled)'
-          : (a.textContent || '')
+        span.textContent = a.textContent || 'Link disabled'
         span.className = a.className
-        a.replaceWith(span) // elimina el <a> con su href del DOM
+        a.replaceWith(span)
+      }
+    })
+
+    // 2) Enmascara emails en texto plano (sin romper eventos)
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+    const nodes: Text[] = []
+    let n: Node | null
+    while ((n = walker.nextNode())) nodes.push(n as Text)
+    nodes.forEach(t => {
+      if (emailRe.test(t.nodeValue || '')) {
+        t.nodeValue = (t.nodeValue || '').replace(emailRe, 'Email hidden — contact via Upwork')
       }
     })
   }, [])
