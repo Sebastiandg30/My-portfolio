@@ -57,6 +57,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+:root[data-upwork-safe="1"] a[href^="http"],
+:root[data-upwork-safe="1"] a[href^="/contact"],
+:root[data-upwork-safe="1"] a[href*="contact"],
 :root[data-upwork-safe="1"] a[href^="mailto:"],
 :root[data-upwork-safe="1"] a[href^="tel:"],
 :root[data-upwork-safe="1"] .social-links {
