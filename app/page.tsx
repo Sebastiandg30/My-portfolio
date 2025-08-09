@@ -803,8 +803,8 @@ export default function Component() {
                </Card>
                <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">QA Engineer</CardTitle>
-                <CardDescription className="text-gray-400">3MIT | 04/2025 - Present (Full-Time)</CardDescription>
+                <CardTitle className="text-white">QA Engineer/Business Analyst</CardTitle>
+                <CardDescription className="text-gray-400">Salmonlabs| 05/2025 - 08/2025 (Full-Time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
