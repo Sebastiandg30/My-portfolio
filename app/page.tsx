@@ -838,7 +838,7 @@ export default function Component() {
                   <li>Designed extensive test suites and test plans covering functional, usability, UI/UX, and regression testing.</li>
                   <li>Improved collaboration between QA, product, and design teams by aligning workflows through Jira and Slack.</li>
                   <li>Validated business critical functionality by performing basic CMS testing and database (MySQL) testing.</li>
-                  <li>Contribute to reducing project delivery delays by aligning QA processes with Agile methodologies.</li>
+                  <li>Contributed to reducing project delivery delays by aligning QA processes with Agile methodologies.</li>
                 </ul>
               </CardContent>
             </Card>
