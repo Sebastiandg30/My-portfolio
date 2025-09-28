@@ -775,7 +775,7 @@ export default function Component() {
           </div>
         </motion.section>
 
-          <motion.section 
+      <motion.section 
           id="experience" 
           className="mb-16"
           initial={{ opacity: 0, y: 50 }}
@@ -786,62 +786,71 @@ export default function Component() {
           <div className="space-y-8">
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">QA Engineer | 3MIT</CardTitle>
-                <CardDescription className="text-gray-400">April 2025 - Present (Full-Time)</CardDescription>
+                <CardTitle className="text-white">QA Engineer</CardTitle>
+                <CardDescription className="text-gray-400">3MIT | 04/2025 - Present (Full-Time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Ensured compliance with national tax regulations by testing finance-heavy Odoo ERP modules.</li>
-                  <li>Designed and maintained a regression suite with broad coverage for financial and accounting workflows.</li>
-                  <li>Adapted QA strategies for large-scale ERP customizations in dynamic client environments.</li>
-                  <li>Built a reusable test framework for critical user flows using Selenium and integrated it in the CI/CD pipeline.</li>
+                   <li>Execute manual testing for customized Odoo-based ERP solutions tailored to national and international clients across various industries.</li>
+                   <li>Lead testing of finance-heavy modules, including invoicing and accounting workflows, ensuring compliance with client-specific and local tax regulations.</li>
+                   <li>Validate modifications across various Odoo modules such as Contacts, Accounting, Sales, Purchases, and Portal User Management.</li>
+                   <li>Perform functional, regression, and exploratory testing to verify business logic, user flows, and system behavior after client-driven changes.</li>
+                   <li>Handle real business data in CSV, xlsx, XML, and PDF formats to validate accuracy, expected structure, and proper integration across systems.</li>
+                   <li>Create and maintain detailed test cases based on client specifications and existing functionality; flag and document issues for the development team.</li>
+                   <li>Contribute to process improvement by adapting QA strategies to the dynamic nature of ERP customization for large-scale business operations.</li>
                 </ul>
               </CardContent>
-            </Card>
-            <Card className="bg-white/5 border-white/10">
+               </Card>
+               <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">QA Engineer/Business Analyst | Salmonlabs</CardTitle>
-                <CardDescription className="text-gray-400">May 2025 - August 2025 (Full-Time)</CardDescription>
+                <CardTitle className="text-white">QA Engineer/Business Analyst</CardTitle>
+                <CardDescription className="text-gray-400">Salmonlabs | 05/2025 - 08/2025 (Full-Time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Collected, enriched, and verified leads while building repeatable data pipelines that tracked SLAs.</li>
-                  <li>Automated ingestion, transforms, and validations with Python to deliver audit-ready reports.</li>
-                  <li>Integrated ChatGPT API to review script outputs, reduce false positives, and accelerate review cycles.</li>
-                  <li>Processed large CSV/XLSX datasets for cleaning, deduplication, normalization, and reconciliation.</li>
-                  <li>Used Postman to test endpoints, monitor automated runs, and troubleshoot failures.</li>
+                   <li>Collect, enrich, and verify targeted contacts/companies per client criteria using LinkedIn Sales Navigator, Google, company sites, directories, registries, and news.</li>
+                   <li>Build repeatable extraction pipelines (API calls/scraping → parsing → QC → delivery) and track progress/SLAs.</li>
+                   <li>Write and maintain Python scripts to automate ingestion, transforms, and validations; generate audit-ready reports.</li>
+                   <li>Apply ChatGPT API and other AI to review script flags, distinguish false positives/edge cases, and speed review cycles.</li>
+                   <li>Process large CSV/XLSX datasets: enforce schema, clean, dedupe, normalize, and reconcile conflicting fields.</li>
+                   <li>Utilized IA&#39;s to create, review, search/scrap data and fix CSV/XLSX files, ensuring data integrity and consistency.</li>
+                   <li>Use Postman to hit endpoints, trigger/monitor automated runs, inspect logs, and triage failures/timeouts.</li>
                 </ul>
               </CardContent>
-            </Card>
-            <Card className="bg-white/5 border-white/10">
+               </Card>
+               <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">QA Engineer | Netforemost</CardTitle>
-                <CardDescription className="text-gray-400">August 2024 - April 2025 (Full-Time)</CardDescription>
+                <CardTitle className="text-white">QA Automation Engineer</CardTitle>
+                <CardDescription className="text-gray-400">Netforemost | 08/2024 - 04/2025 (Full-time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Built a reusable test framework for critical user flows using Selenium and integrated it into the CI/CD pipeline.</li>
-                  <li>Conducted comprehensive API testing in Postman, detecting issues earlier in the development lifecycle.</li>
-                  <li>Applied TDD practices to improve maintainability and reduce recurring bugs.</li>
-                  <li>Collaborated closely with cross-functional teams and US-based clients, leading demos and communicating findings in Agile/Scrum ceremonies.</li>
+                    <li>Implemented Test-Driven Development (TDD) in projects to enhance code quality and ensure robust test coverage.</li>
+                    <li>Developed and maintained automated scripts using Selenium for functional and regression tests, significantly reducing manual testing effort.</li>
+                    <li>Conducted system, regression, and exploratory testing to ensure business functionality and interoperability.</li>
+                    <li>Performed API testing using Postman (PATCH, GET, POST, DELETE), increasing early defect detection and reducing production issues.</li>
+                    <li>Validated test environments, generated reports, and classified software quality issues, leading to a more streamlined testing process.</li>
+                    <li>Worked on several projects, ensuring efficient testing processes and adaptability to varying project needs.</li>
+                    <li>Regularly communicated with American Product Owners (POs) and clients during demos and daily standups in English, fostering clear understanding and alignment on project goals.</li>
                 </ul>
               </CardContent>
             </Card>
-            <Card className="bg-white/5 border-white/10">
+               <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-white">Manual QA | Uemura</CardTitle>
-                <CardDescription className="text-gray-400">January 2024 - August 2024 (Full-Time)</CardDescription>
+                <CardTitle className="text-white">Manual & Automation QA Tester</CardTitle>
+                <CardDescription className="text-gray-400">Uemura | 01/2024 - 08/2024 (Part-time)</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  <li>Create a testing strategy from scratch for a project where no QA was done before.</li>
-                  <li>Designed extensive test suites and test plans covering functional, usability, UI/UX, and regression testing.</li>
-                  <li>Improved collaboration between QA, product, and design teams by aligning workflows through Jira and Slack.</li>
-                  <li>Validated business critical functionality by performing basic CMS testing and database (MySQL) testing.</li>
-                  <li>Contributed to reducing project delivery delays by aligning QA processes with Agile methodologies.</li>
+                    <li>Took a buggy and problematic production environment and worked on delivering a more stable and reliable version, improving overall system performance and user satisfaction.</li>
+                    <li>Utilized positive and negative test scenarios for thorough system coverage, leading to an increase in early detection and a reduction in critical bugs in production.</li>
+                    <li>Developed and maintained scalable test automation frameworks and manual testing processes, reducing testing time.</li>
+                    <li>Triaged, diagnosed, reported, tracked, and resolved software quality issues.</li>
+                    <li>Communicated actively across multiple teams, ensuring cohesion and collaboration, which improved team productivity and reduced project delivery time.</li>
                 </ul>
               </CardContent>
             </Card>
+            
           </div>
         </motion.section>
         
