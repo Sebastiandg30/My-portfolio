@@ -421,7 +421,7 @@ export default function PortfolioPage() {
                 href="https://www.upwork.com/freelancers/~01797400cf1c137fb1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-black/15 bg-white px-5 py-3 text-sm font-semibold"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
               >
                 Upwork <ExternalLink className="h-4 w-4" />
               </a>
@@ -446,6 +446,14 @@ export default function PortfolioPage() {
               <p className="inline-flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-[var(--mustard)]" /> API testing, telemetry/tracking QA, automation, and data validation
               </p>
+              <a
+                href="https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-semibold text-[var(--teal)] hover:underline"
+              >
+                <ExternalLink className="h-4 w-4" /> Upwork profile
+              </a>
             </div>
 
             <div className="border-t border-black/10 pt-3">
@@ -575,10 +583,10 @@ export default function PortfolioPage() {
         </section>
 
         <section id="contact" className="scroll-mt-24 pb-8 pt-16 md:pt-24">
-          <div className="rounded-3xl border border-slate-700 bg-[#111623] px-6 py-10 text-center text-white md:px-10">
-            <p className="section-label !text-slate-300">Contact</p>
+          <div className="glass-card rounded-3xl px-6 py-10 text-center md:px-10">
+            <p className="section-label">Contact</p>
             <h2 className="mt-2 font-display text-4xl md:text-5xl">Need stronger release confidence?</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-slate-200">
+            <p className="mx-auto mt-4 max-w-2xl text-slate-700">
               If your team is shipping fast and quality is becoming risky, I can help you build a QA system that scales with your product.
             </p>
             <div className="social-links mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -592,7 +600,7 @@ export default function PortfolioPage() {
               </a>
               <a
                 href="mailto:sebasdgg3001@gmail.com"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/35 px-4 py-2.5 text-sm font-semibold text-white"
+                className="inline-flex items-center gap-2 rounded-xl border border-black/20 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
               >
                 <Mail className="h-4 w-4" /> Email
               </a>
@@ -600,7 +608,7 @@ export default function PortfolioPage() {
                 href="https://www.linkedin.com/in/sebastiangomez30/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/35 px-4 py-2.5 text-sm font-semibold text-white"
+                className="inline-flex items-center gap-2 rounded-xl border border-black/20 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
               >
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>

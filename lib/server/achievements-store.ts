@@ -28,12 +28,17 @@ function githubContentsEndpoint(): string {
   return `${GITHUB_API}/repos/${githubRepo}/contents/${githubFilePath}`
 }
 
+function withBranchRef(url: string): string {
+  const separator = url.includes('?') ? '&' : '?'
+  return `${url}${separator}ref=${encodeURIComponent(githubBranch)}`
+}
+
 async function readFromGitHub(): Promise<{ achievements: Achievement[]; sha?: string }> {
   if (!githubRepo || !githubToken) {
     throw new Error('GitHub storage is enabled but GITHUB_REPO or GITHUB_TOKEN is missing')
   }
 
-  const response = await fetch(githubContentsEndpoint(), {
+  const response = await fetch(withBranchRef(githubContentsEndpoint()), {
     headers: githubHeaders(),
     cache: 'no-store',
   })

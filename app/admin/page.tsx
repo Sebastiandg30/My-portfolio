@@ -239,10 +239,10 @@ function Dashboard({
   return (
     <div className="min-h-screen bg-transparent">
       <header className="sticky top-0 z-30 border-b border-black/10 bg-[color:rgba(251,247,241,0.95)] backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4">
+        <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <div>
             <p className="section-label">Admin</p>
-            <p className="font-display text-xl">Manage Achievements</p>
+            <p className="font-display text-xl leading-[1.2]">Manage Achievements</p>
           </div>
 
           <div className="flex items-center gap-2">
