@@ -9,6 +9,7 @@ export interface Achievement {
   impact: string
   tags: string[]
   proofUrl?: string
+  previewVideo?: string
 }
 
 interface LegacyAchievement {
@@ -29,46 +30,49 @@ export const defaultAchievements: Achievement[] = [
     id: 'test-framework-order-chaos',
     title: 'Test framework built from scratch that brought order to chaos',
     company: 'Uemura',
-    role: 'QA Engineer',
+    role: 'Manual QA',
     period: '2024',
     challenge:
-      'There was no framework, no structure, and no repeatable QA flow across multiple active projects. Bugs were discovered by chance and quality depended on manual effort.',
+      'The team had no QA structure, no reusable tests, and no clear process across multiple active projects.',
     action:
-      'I designed and implemented a Selenium framework from zero with reusable components, organized suites, and a structure that could support different domains without restarting from scratch.',
+      'I built a Selenium framework from scratch with reusable components, organized suites, and a repeatable structure for multi-domain products.',
     impact:
-      'Testing moved from reactive to systematic execution, with faster regression cycles and more stable releases.',
-    tags: ['Selenium', 'Java', 'Regression Testing', 'Test Strategy'],
+      'Testing stopped being ad hoc and became a predictable process that improved release quality and debugging speed.',
+    tags: ['Selenium', 'Java', 'Regression Testing', 'Framework Design'],
     proofUrl: 'https://www.upwork.com/freelancers/~01797400cf1c137fb1',
+    previewVideo: '/Selenium.mp4',
   },
   {
     id: 'ai-validation-cleaned-leads',
-    title: 'AI-powered validation that cleaned thousands of leads',
-    company: 'Salmonlabs',
+    title: 'AI-powered validation pipeline for lead quality control',
+    company: 'SalmonLabs',
     role: 'QA Engineer',
     period: '2025',
     challenge:
-      'Thousands of scraped lead profiles arrived with missing fields, invalid photos, and contradictory data. Manual review was too slow and too expensive to scale.',
+      'Large lead datasets arrived with missing fields, duplicates, and inconsistent records that blocked reliable delivery.',
     action:
-      'I built an automated validation pipeline in Python and integrated the ChatGPT API to check profile quality, classify inconsistencies, and route flagged records for focused review.',
+      'I implemented an API/scraping -> parsing -> quality control pipeline and integrated ChatGPT API checks to automate review and remove manual bottlenecks.',
     impact:
-      'Bad leads were filtered before reaching sales operations, improving confidence in campaign data and reducing manual verification time.',
+      'Delivery became faster and more consistent, with better data quality and stronger SLA compliance.',
     tags: ['Python', 'Data Validation', 'OpenAI API', 'Automation'],
     proofUrl: 'https://www.upwork.com/freelancers/~01797400cf1c137fb1',
+    previewVideo: '/Postman.mp4',
   },
   {
     id: 'invoice-validation-caught-missed-bugs',
-    title: 'Automated invoice validation that caught what manual testing missed',
+    title: 'Automated invoice validation for finance-critical workflows',
     company: '3MIT',
     role: 'QA Engineer',
     period: '2025 - 2026',
     challenge:
-      'Invoice records looked correct on the UI but failed accounting balance checks under specific combinations of taxes, currencies, and line items.',
+      'Accounting flows produced silent invoice mismatches under specific combinations of taxes, currencies, and line items.',
     action:
-      'I implemented a unit-test suite covering hundreds of invoice scenarios with detailed failure traces to pinpoint mismatches quickly.',
+      'I created a unit-test suite with high scenario coverage and failure traces to identify mismatches quickly in ERP accounting logic.',
     impact:
-      'High-risk accounting defects were detected before staging, reducing investigation time and preventing client-facing incidents.',
-    tags: ['Python', 'Unit Testing', 'Financial QA', 'Automation'],
+      'High-risk accounting defects were detected before staging, reducing incident risk and investigation time.',
+    tags: ['Python', 'Unit Testing', 'Financial QA', 'ERP Testing'],
     proofUrl: 'https://www.upwork.com/freelancers/~01797400cf1c137fb1',
+    previewVideo: '/Jmeter.mp4',
   },
 ]
 
@@ -89,7 +93,7 @@ function normalizeTags(value: unknown): string[] {
   return Array.from(new Set(tags))
 }
 
-function normalizeProofUrl(value: unknown): string | undefined {
+function normalizeUrl(value: unknown): string | undefined {
   const url = normalizeText(value)
   if (!url) return undefined
   return url
@@ -114,6 +118,7 @@ export function createEmptyAchievement(): Achievement {
     impact: '',
     tags: [],
     proofUrl: '',
+    previewVideo: '',
   }
 }
 
@@ -143,7 +148,8 @@ export function normalizeAchievement(input: unknown, index: number): Achievement
 
   const company = normalizeText(source.company) || DEFAULT_COMPANY
   const period = normalizeText(source.period) || normalizeText(source.date) || DEFAULT_PERIOD
-  const proofUrl = normalizeProofUrl(source.proofUrl ?? source.link)
+  const proofUrl = normalizeUrl(source.proofUrl ?? source.link)
+  const previewVideo = normalizeUrl(source.previewVideo ?? source.videoUrl ?? source.video)
 
   return {
     id,
@@ -156,6 +162,7 @@ export function normalizeAchievement(input: unknown, index: number): Achievement
     impact,
     tags,
     ...(proofUrl ? { proofUrl } : {}),
+    ...(previewVideo ? { previewVideo } : {}),
   }
 }
 

@@ -193,6 +193,7 @@ function Dashboard({
       impact: '',
       tags: [],
       proofUrl: '',
+      previewVideo: '',
     }
 
     setAchievements(items => [next, ...items])
@@ -461,6 +462,17 @@ function Dashboard({
                         type="text"
                         value={item.proofUrl ?? ''}
                         onChange={event => updateItem(item.id, { proofUrl: event.target.value })}
+                        className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm font-normal text-slate-800 outline-none focus:border-[var(--teal)]"
+                      />
+                    </label>
+
+                    <label className="space-y-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 md:col-span-2">
+                      Preview video path (optional)
+                      <input
+                        type="text"
+                        value={item.previewVideo ?? ''}
+                        onChange={event => updateItem(item.id, { previewVideo: event.target.value })}
+                        placeholder="/Selenium.mp4"
                         className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm font-normal text-slate-800 outline-none focus:border-[var(--teal)]"
                       />
                     </label>
