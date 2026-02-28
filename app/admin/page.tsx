@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import {
   ArrowDown,
   ArrowLeft,
@@ -100,12 +101,12 @@ function LoginScreen({
   return (
     <div className="min-h-screen bg-transparent px-4 py-12">
       <div className="mx-auto w-full max-w-md rounded-3xl border border-black/10 bg-white/80 p-8 shadow-sm backdrop-blur">
-        <a
+        <Link
           href="/"
           className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-black"
         >
           <ArrowLeft className="h-4 w-4" /> Back to portfolio
-        </a>
+        </Link>
 
         <p className="section-label">Admin Access</p>
         <h1 className="mt-2 font-display text-4xl">Portfolio CMS</h1>
@@ -244,13 +245,14 @@ function Dashboard({
           </div>
 
           <div className="flex items-center gap-2">
-            <a
+            <Link
               href="/"
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-black/15 bg-white px-3 py-2 text-xs font-semibold"
             >
               <Eye className="h-3.5 w-3.5" /> Preview
-            </a>
+            </Link>
             <button
               type="button"
               onClick={onLogout}
@@ -314,7 +316,7 @@ function Dashboard({
 
         {!loading && achievements.length === 0 ? (
           <div className="rounded-2xl border border-black/10 bg-white/75 p-8 text-center text-sm text-slate-600">
-            No achievements yet. Click "Add" to create one.
+            No achievements yet. Click &quot;Add&quot; to create one.
           </div>
         ) : null}
 
