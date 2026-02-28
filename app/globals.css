@@ -4,48 +4,36 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 42 31% 95%;
+    --foreground: 224 29% 13%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 224 29% 13%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
+    --popover-foreground: 224 29% 13%;
+    --primary: 14 89% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 177 83% 32%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 218 20% 92%;
+    --muted-foreground: 221 20% 36%;
+    --accent: 42 93% 56%;
+    --accent-foreground: 224 29% 13%;
+    --destructive: 0 84% 59%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 19% 84%;
+    --input: 220 19% 84%;
+    --ring: 14 89% 56%;
+    --radius: 0.75rem;
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --page-bg: #f4efe6;
+    --paper: #fbf7f1;
+    --ink: #111827;
+    --ink-muted: #4b5563;
+    --line: #d8d2c8;
+    --tomato: #f65c33;
+    --teal: #0a9b92;
+    --mustard: #f2b63d;
+    --night: #111623;
   }
 }
 
@@ -53,7 +41,52 @@
   * {
     @apply border-border;
   }
+
+  html,
   body {
-    @apply bg-background text-foreground;
+    width: 100%;
+    min-height: 100%;
   }
+
+  body {
+    color: var(--ink);
+    font-family: var(--font-sans), ui-sans-serif, system-ui;
+    background-color: var(--page-bg);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(246, 92, 51, 0.18), transparent 32%),
+      radial-gradient(circle at 88% 15%, rgba(10, 155, 146, 0.17), transparent 30%),
+      radial-gradient(circle at 70% 84%, rgba(242, 182, 61, 0.16), transparent 35%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), ui-sans-serif, system-ui;
+  }
+
+  .font-mono-custom {
+    font-family: var(--font-mono-custom), ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-black/10 bg-white/70 backdrop-blur;
+  }
+
+  .section-label {
+    @apply font-mono-custom text-xs uppercase tracking-[0.22em] text-slate-500;
+  }
+}
+
+/* Hide links and direct contact paths when Upwork safe mode is enabled. */
+:root[data-upwork-safe='1'] a[href^='http'],
+:root[data-upwork-safe='1'] a[href*='contact'],
+:root[data-upwork-safe='1'] a[href$='.pdf'],
+:root[data-upwork-safe='1'] a[href*='resume'],
+:root[data-upwork-safe='1'] a[href*='cv'],
+:root[data-upwork-safe='1'] a[href^='mailto:'],
+:root[data-upwork-safe='1'] a[href^='tel:'],
+:root[data-upwork-safe='1'] .social-links {
+  display: none !important;
+  visibility: hidden !important;
 }
