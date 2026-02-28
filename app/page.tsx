@@ -25,6 +25,12 @@ import {
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { defaultAchievements, normalizeAchievements, type Achievement } from '@/lib/achievements'
+import {
+  defaultSiteContent,
+  normalizeSiteContent,
+  type ExperienceItem,
+  type SiteContent,
+} from '@/lib/site-content'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -64,7 +70,7 @@ function AchievementCard({
           </span>
           <span className="font-mono-custom text-xs text-slate-300">{achievement.period}</span>
         </div>
-        <h3 className="font-display text-2xl leading-tight">{achievement.title}</h3>
+        <h3 className="font-display text-2xl leading-[1.22]">{achievement.title}</h3>
         <p className="mt-2 text-sm text-slate-300">{achievement.company}</p>
       </div>
 
@@ -137,8 +143,68 @@ function AchievementCard({
   )
 }
 
+function ExperienceGroup({
+  title,
+  items,
+}: {
+  title: string
+  items: ExperienceItem[]
+}) {
+  return (
+    <div className="space-y-4">
+      <h3 className="font-display text-2xl leading-[1.22]">{title}</h3>
+      <div className="space-y-4">
+        {items.map((job, index) => (
+          <motion.article
+            key={job.id}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-50px' }}
+            custom={index}
+            className="glass-card p-5"
+          >
+            <div className="mb-2 flex flex-wrap items-center gap-3">
+              <h4 className="font-display text-2xl leading-[1.22]">{job.role}</h4>
+              <span className="rounded-full bg-[var(--night)] px-3 py-1 text-xs font-semibold text-white">
+                {job.company}
+              </span>
+            </div>
+
+            <p className="mb-4 inline-flex items-center gap-2 font-mono-custom text-xs text-slate-500">
+              <CalendarDays className="h-3.5 w-3.5" />
+              {job.period} · {job.location}
+            </p>
+
+            <ul className="space-y-2 text-sm text-slate-700">
+              {job.bullets.map((bullet, bulletIndex) => (
+                <li key={`${job.id}-${bulletIndex}`} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--teal)]" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+
+            {job.link ? (
+              <a
+                href={job.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--teal)] hover:underline"
+              >
+                View project source <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            ) : null}
+          </motion.article>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function PortfolioPage() {
   const [achievements, setAchievements] = useState<Achievement[]>(defaultAchievements)
+  const [siteContent, setSiteContent] = useState<SiteContent>(defaultSiteContent)
   const [menuOpen, setMenuOpen] = useState(false)
   const [showBackToTopOnMobile, setShowBackToTopOnMobile] = useState(false)
   const [showHiddenAdmin, setShowHiddenAdmin] = useState(false)
@@ -147,21 +213,37 @@ export default function PortfolioPage() {
   const adminRevealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    const loadAchievements = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch('/api/achievements', { cache: 'no-store' })
-        if (!response.ok) return
+        const [achievementsResponse, siteContentResponse] = await Promise.all([
+          fetch('/api/achievements', { cache: 'no-store' }),
+          fetch('/api/site-content', { cache: 'no-store' }),
+        ])
 
-        const payload = (await response.json()) as { achievements?: unknown }
-        if (payload.achievements) {
-          setAchievements(normalizeAchievements(payload.achievements))
+        if (achievementsResponse.ok) {
+          const achievementsPayload = (await achievementsResponse.json()) as {
+            achievements?: unknown
+          }
+          if (achievementsPayload.achievements) {
+            setAchievements(normalizeAchievements(achievementsPayload.achievements))
+          }
+        }
+
+        if (siteContentResponse.ok) {
+          const siteContentPayload = (await siteContentResponse.json()) as {
+            siteContent?: unknown
+          }
+          if (siteContentPayload.siteContent) {
+            setSiteContent(normalizeSiteContent(siteContentPayload.siteContent))
+          }
         }
       } catch {
         setAchievements(defaultAchievements)
+        setSiteContent(defaultSiteContent)
       }
     }
 
-    loadAchievements()
+    loadData()
   }, [])
 
   useEffect(() => {
@@ -197,96 +279,6 @@ export default function PortfolioPage() {
     { id: 'experience', label: 'experience' },
     { id: 'certifications', label: 'certifications' },
     { id: 'contact', label: 'contact' },
-  ]
-
-  const quickTools = [
-    'Cypress',
-    'Selenium',
-    'Playwright',
-    'Postman',
-    'Python',
-    'JavaScript',
-    'SQL',
-    'GitHub Actions',
-    'Jira',
-  ]
-
-  const experience = [
-    {
-      role: 'QA Engineer',
-      company: 'USA Today',
-      location: 'United States',
-      period: 'Nov 2025 - Present',
-      bullets: [
-        'Validated telemetry and tracking behavior using URL parameters, cookies, and QSP checks.',
-        'Executed manual cross-browser testing in staging across national and local-market sites.',
-        'Expanded coverage in existing Postman API collections and Cypress UI suites.',
-      ],
-    },
-    {
-      role: 'QA Engineer',
-      company: '3MIT',
-      location: 'Venezuela',
-      period: 'Apr 2025 - Present',
-      bullets: [
-        'Tested finance-heavy Odoo ERP modules for tax-compliant accounting behavior.',
-        'Built and maintained a broad regression suite for accounting and business-critical flows.',
-        'Standardized QA strategy and integrated automation in CI/CD workflows.',
-      ],
-    },
-    {
-      role: 'QA Engineer',
-      company: 'SalmonLabs (Contract)',
-      location: 'United States',
-      period: 'Jul 2025 - Aug 2025',
-      bullets: [
-        'Built repeatable lead pipelines from scraping/API ingestion to QC and final delivery.',
-        'Integrated ChatGPT API checks to automate script output review and remove manual bottlenecks.',
-        'Cleaned and normalized large CSV/XLSX datasets for reliable downstream use.',
-      ],
-    },
-    {
-      role: 'QA Engineer',
-      company: 'Netforemost',
-      location: 'Panama',
-      period: 'Aug 2024 - Apr 2025',
-      bullets: [
-        'Built a reusable Selenium framework for critical user flows and integrated it into CI/CD.',
-        'Led API testing with Postman to detect backend issues earlier in the cycle.',
-        'Applied TDD practices to improve maintainability and reduce recurring defects.',
-      ],
-    },
-    {
-      role: 'Manual QA',
-      company: 'Uemura',
-      location: 'Spain',
-      period: 'Jan 2024 - Aug 2024',
-      bullets: [
-        'Created the QA process from scratch, including strategy, documentation, and test coverage.',
-        'Validated key CMS and database-related flows to reduce production regressions.',
-      ],
-    },
-  ]
-
-  const certifications = [
-    {
-      title: "CS50's Intro to Computer Science",
-      issuer: 'Harvard University',
-      image: '/HarvardX CS50x.jpg',
-      verifyUrl: 'https://www.linkedin.com/in/sebastiangomez30/details/certifications/',
-    },
-    {
-      title: "CS50's Intro to Python",
-      issuer: 'Harvard University',
-      image: '/HarvardX CS50P.jpg',
-      verifyUrl: 'https://www.linkedin.com/in/sebastiangomez30/details/certifications/',
-    },
-    {
-      title: 'Software Testing MasterClass',
-      issuer: 'Udemy',
-      image: '/TestingMC (1) (3).jpg',
-      verifyUrl: 'https://www.linkedin.com/in/sebastiangomez30/details/certifications/',
-    },
   ]
 
   const scrollToSection = (id: string) => {
@@ -325,6 +317,8 @@ export default function PortfolioPage() {
     }
   }
 
+  const emailHref = `mailto:${siteContent.profile.email}`
+
   return (
     <div className="relative overflow-x-hidden text-[var(--ink)]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-[color:rgba(251,247,241,0.92)] backdrop-blur-xl">
@@ -332,7 +326,7 @@ export default function PortfolioPage() {
           <button
             type="button"
             onClick={handleBrandClick}
-            className="font-display text-xl leading-none"
+            className="font-display text-xl leading-[1.28]"
             aria-label="Go to top"
           >
             Sebastian Gomez
@@ -401,24 +395,24 @@ export default function PortfolioPage() {
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
             <span className="section-label">QA Engineer · Test Automation</span>
 
-            <h1 className="font-display text-5xl leading-[0.95] md:text-7xl">
+            <h1 className="font-display text-5xl leading-[1.14] md:text-7xl">
               Real QA wins from
               <span className="block text-[var(--tomato)]">production environments.</span>
             </h1>
 
             <p className="max-w-2xl text-lg text-slate-600">
-              QA Engineer at the intersection of product, engineering, and users. I build test coverage that catches real issues early and helps teams ship with confidence.
+              {siteContent.profile.headline} {siteContent.profile.intro}
             </p>
 
             <div className="flex flex-wrap gap-3">
               <a
-                href="/Sebastian_Gomez_CV_2026.pdf"
+                href={siteContent.profile.cvUrl}
                 className="inline-flex items-center gap-2 rounded-xl bg-[var(--night)] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
               >
                 <FileText className="h-4 w-4" /> Download CV
               </a>
               <a
-                href="https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+                href={siteContent.profile.upworkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
@@ -435,19 +429,18 @@ export default function PortfolioPage() {
             custom={1}
             className="glass-card space-y-4 p-6"
           >
-            <h2 className="font-display text-2xl">Quick Snapshot</h2>
+            <h2 className="font-display text-2xl leading-[1.22]">Quick Snapshot</h2>
             <div className="space-y-3 text-sm text-slate-700">
               <p className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-[var(--teal)]" /> Caracas, Venezuela (UTC-4)
+                <MapPin className="h-4 w-4 text-[var(--teal)]" /> {siteContent.profile.locationLabel}
               </p>
-              <p className="inline-flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-[var(--tomato)]" /> Product, engineering, and user-centered QA execution
-              </p>
-              <p className="inline-flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[var(--mustard)]" /> API testing, telemetry/tracking QA, automation, and data validation
-              </p>
+              {siteContent.quickSnapshot.highlights.map((item, index) => (
+                <p key={`${item}-${index}`} className="inline-flex items-center gap-2">
+                  <Briefcase className="h-4 w-4 text-[var(--tomato)]" /> {item}
+                </p>
+              ))}
               <a
-                href="https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+                href={siteContent.profile.upworkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-semibold text-[var(--teal)] hover:underline"
@@ -459,7 +452,7 @@ export default function PortfolioPage() {
             <div className="border-t border-black/10 pt-3">
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">Core stack</p>
               <div className="flex flex-wrap gap-2">
-                {quickTools.map(tool => (
+                {siteContent.quickSnapshot.coreStack.map(tool => (
                   <Badge
                     key={tool}
                     className="border-black/10 bg-black/[0.04] px-2.5 py-1 text-xs text-slate-700"
@@ -472,13 +465,13 @@ export default function PortfolioPage() {
 
             <div className="social-links flex gap-2 pt-2">
               <a
-                href="mailto:sebasdgg3001@gmail.com"
+                href={emailHref}
                 className="inline-flex rounded-lg border border-black/10 bg-white p-2.5 text-slate-700 transition-colors hover:text-black"
               >
                 <Mail className="h-4 w-4" />
               </a>
               <a
-                href="https://www.linkedin.com/in/sebastiangomez30/"
+                href={siteContent.profile.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex rounded-lg border border-black/10 bg-white p-2.5 text-slate-700 transition-colors hover:text-black"
@@ -486,7 +479,7 @@ export default function PortfolioPage() {
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
-                href="https://github.com/Sebastiandg30"
+                href={siteContent.profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex rounded-lg border border-black/10 bg-white p-2.5 text-slate-700 transition-colors hover:text-black"
@@ -500,7 +493,7 @@ export default function PortfolioPage() {
         <section id="achievements" className="scroll-mt-24 pt-16 md:pt-24">
           <div className="mb-8 space-y-2">
             <p className="section-label">Most Relevant Work</p>
-            <h2 className="font-display text-4xl md:text-5xl">Client Achievements</h2>
+            <h2 className="font-display text-4xl leading-[1.2] md:text-5xl">Client Achievements</h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -512,50 +505,22 @@ export default function PortfolioPage() {
 
         <section id="experience" className="scroll-mt-24 pt-16 md:pt-24">
           <p className="section-label">Experience</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Professional Timeline</h2>
+          <h2 className="mt-2 font-display text-4xl leading-[1.2] md:text-5xl">Professional Timeline</h2>
 
-          <div className="mt-8 space-y-4">
-            {experience.map((job, index) => (
-              <motion.article
-                key={`${job.company}-${job.period}`}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: '-50px' }}
-                custom={index}
-                className="glass-card p-5"
-              >
-                <div className="mb-2 flex flex-wrap items-center gap-3">
-                  <h3 className="font-display text-2xl">{job.role}</h3>
-                  <span className="rounded-full bg-[var(--night)] px-3 py-1 text-xs font-semibold text-white">
-                    {job.company}
-                  </span>
-                </div>
-                <p className="mb-4 inline-flex items-center gap-2 font-mono-custom text-xs text-slate-500">
-                  <CalendarDays className="h-3.5 w-3.5" />
-                  {job.period} · {job.location}
-                </p>
-                <ul className="space-y-2 text-sm text-slate-700">
-                  {job.bullets.map(bullet => (
-                    <li key={bullet} className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--teal)]" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.article>
-            ))}
+          <div className="mt-8 space-y-10">
+            <ExperienceGroup title="Contract Experience" items={siteContent.experience.contractual} />
+            <ExperienceGroup title="Upwork Experience" items={siteContent.experience.upwork} />
           </div>
         </section>
 
         <section id="certifications" className="scroll-mt-24 pt-16 md:pt-24">
           <p className="section-label">Learning</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Selected Certifications</h2>
+          <h2 className="mt-2 font-display text-4xl leading-[1.2] md:text-5xl">Selected Certifications</h2>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {certifications.map(cert => (
+            {siteContent.certifications.map(cert => (
               <a
-                key={cert.title}
+                key={cert.id}
                 href={cert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -585,13 +550,13 @@ export default function PortfolioPage() {
         <section id="contact" className="scroll-mt-24 pb-8 pt-16 md:pt-24">
           <div className="glass-card rounded-3xl px-6 py-10 text-center md:px-10">
             <p className="section-label">Contact</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl">Need stronger release confidence?</h2>
+            <h2 className="mt-2 font-display text-4xl leading-[1.2] md:text-5xl">{siteContent.contact.title}</h2>
             <p className="mx-auto mt-4 max-w-2xl text-slate-700">
-              If your team is shipping fast and quality is becoming risky, I can help you build a QA system that scales with your product.
+              {siteContent.contact.description}
             </p>
             <div className="social-links mt-6 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+                href={siteContent.profile.upworkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-4 py-2.5 text-sm font-semibold text-white"
@@ -599,13 +564,13 @@ export default function PortfolioPage() {
                 <ExternalLink className="h-4 w-4" /> Upwork
               </a>
               <a
-                href="mailto:sebasdgg3001@gmail.com"
+                href={emailHref}
                 className="inline-flex items-center gap-2 rounded-xl border border-black/20 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
               >
                 <Mail className="h-4 w-4" /> Email
               </a>
               <a
-                href="https://www.linkedin.com/in/sebastiangomez30/"
+                href={siteContent.profile.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-black/20 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
@@ -621,7 +586,9 @@ export default function PortfolioPage() {
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-5 right-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-slate-700 shadow-sm transition-all hover:text-black md:opacity-100 md:pointer-events-auto ${
-          showBackToTopOnMobile ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          showBackToTopOnMobile
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
         }`}
         aria-label="Back to top"
       >

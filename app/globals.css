@@ -63,6 +63,7 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display), ui-sans-serif, system-ui;
+    line-height: 1.22;
   }
 
   .font-mono-custom {

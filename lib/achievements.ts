@@ -171,6 +171,5 @@ export function normalizeAchievements(input: unknown): Achievement[] {
     return defaultAchievements
   }
 
-  const normalized = input.map((item, index) => normalizeAchievement(item, index))
-  return normalized.length > 0 ? normalized : defaultAchievements
+  return input.map((item, index) => normalizeAchievement(item, index))
 }

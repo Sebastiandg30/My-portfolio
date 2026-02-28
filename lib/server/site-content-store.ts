@@ -1,15 +1,15 @@
 import { promises as fs } from 'fs'
 import path from 'path'
-import { defaultAchievements, normalizeAchievements, type Achievement } from '@/lib/achievements'
+import { defaultSiteContent, normalizeSiteContent, type SiteContent } from '@/lib/site-content'
 
-const LOCAL_FILE_PATH = path.join(process.cwd(), 'data', 'achievements.json')
+const LOCAL_FILE_PATH = path.join(process.cwd(), 'data', 'site-content.json')
 const GITHUB_API = 'https://api.github.com'
 
 const storageMode = (process.env.ACHIEVEMENTS_STORAGE ?? '').trim().toLowerCase()
 const githubRepo = (process.env.GITHUB_REPO ?? '').trim()
 const githubToken = (process.env.GITHUB_TOKEN ?? '').trim()
 const githubBranch = (process.env.GITHUB_BRANCH ?? 'main').trim()
-const githubFilePath = (process.env.GITHUB_ACHIEVEMENTS_PATH ?? 'data/achievements.json').trim()
+const githubFilePath = (process.env.GITHUB_SITE_CONTENT_PATH ?? 'data/site-content.json').trim()
 
 function shouldUseGithubStorage(): boolean {
   if (storageMode === 'github') return true
@@ -46,7 +46,7 @@ async function fetchGitHubFileSha(): Promise<string | undefined> {
   return payload.sha
 }
 
-async function readFromGitHub(): Promise<{ achievements: Achievement[]; sha?: string }> {
+async function readFromGitHub(): Promise<{ siteContent: SiteContent; sha?: string }> {
   if (!githubRepo || !githubToken) {
     throw new Error('GitHub storage is enabled but GITHUB_REPO or GITHUB_TOKEN is missing')
   }
@@ -57,7 +57,7 @@ async function readFromGitHub(): Promise<{ achievements: Achievement[]; sha?: st
   })
 
   if (response.status === 404) {
-    return { achievements: defaultAchievements }
+    return { siteContent: defaultSiteContent }
   }
 
   if (!response.ok) {
@@ -73,25 +73,25 @@ async function readFromGitHub(): Promise<{ achievements: Achievement[]; sha?: st
 
   const raw = payload.content
   if (!raw) {
-    return { achievements: defaultAchievements, sha: payload.sha }
+    return { siteContent: defaultSiteContent, sha: payload.sha }
   }
 
   const decoded = Buffer.from(raw, payload.encoding === 'base64' ? 'base64' : 'utf8').toString('utf8')
   const parsed = JSON.parse(decoded)
 
   return {
-    achievements: normalizeAchievements(parsed),
+    siteContent: normalizeSiteContent(parsed),
     sha: payload.sha,
   }
 }
 
-async function writeToGitHub(achievements: Achievement[]): Promise<void> {
+async function writeToGitHub(siteContent: SiteContent): Promise<void> {
   if (!githubRepo || !githubToken) {
     throw new Error('GitHub storage is enabled but GITHUB_REPO or GITHUB_TOKEN is missing')
   }
 
   const existing = await readFromGitHub()
-  const content = `${JSON.stringify(achievements, null, 2)}\n`
+  const content = `${JSON.stringify(siteContent, null, 2)}\n`
 
   const body: {
     message: string
@@ -99,7 +99,7 @@ async function writeToGitHub(achievements: Achievement[]): Promise<void> {
     branch: string
     sha?: string
   } = {
-    message: 'chore: update portfolio achievements',
+    message: 'chore: update portfolio site content',
     content: Buffer.from(content, 'utf8').toString('base64'),
     branch: githubBranch,
   }
@@ -138,33 +138,33 @@ async function writeToGitHub(achievements: Achievement[]): Promise<void> {
   }
 }
 
-async function readFromLocalFile(): Promise<Achievement[]> {
+async function readFromLocalFile(): Promise<SiteContent> {
   try {
     const raw = await fs.readFile(LOCAL_FILE_PATH, 'utf8')
     const parsed = JSON.parse(raw)
-    return normalizeAchievements(parsed)
+    return normalizeSiteContent(parsed)
   } catch {
-    await writeToLocalFile(defaultAchievements)
-    return defaultAchievements
+    await writeToLocalFile(defaultSiteContent)
+    return defaultSiteContent
   }
 }
 
-async function writeToLocalFile(achievements: Achievement[]): Promise<void> {
+async function writeToLocalFile(siteContent: SiteContent): Promise<void> {
   await fs.mkdir(path.dirname(LOCAL_FILE_PATH), { recursive: true })
-  await fs.writeFile(LOCAL_FILE_PATH, `${JSON.stringify(achievements, null, 2)}\n`, 'utf8')
+  await fs.writeFile(LOCAL_FILE_PATH, `${JSON.stringify(siteContent, null, 2)}\n`, 'utf8')
 }
 
-export async function loadAchievementsFromStore(): Promise<Achievement[]> {
+export async function loadSiteContentFromStore(): Promise<SiteContent> {
   if (shouldUseGithubStorage()) {
-    const { achievements } = await readFromGitHub()
-    return achievements
+    const { siteContent } = await readFromGitHub()
+    return siteContent
   }
 
   return readFromLocalFile()
 }
 
-export async function saveAchievementsToStore(input: unknown): Promise<Achievement[]> {
-  const normalized = normalizeAchievements(input)
+export async function saveSiteContentToStore(input: unknown): Promise<SiteContent> {
+  const normalized = normalizeSiteContent(input)
 
   if (shouldUseGithubStorage()) {
     await writeToGitHub(normalized)
@@ -173,8 +173,4 @@ export async function saveAchievementsToStore(input: unknown): Promise<Achieveme
 
   await writeToLocalFile(normalized)
   return normalized
-}
-
-export function storageModeLabel(): 'github' | 'local' {
-  return shouldUseGithubStorage() ? 'github' : 'local'
 }
