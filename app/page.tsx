@@ -7,7 +7,9 @@ import Link from 'next/link'
 import {
   ArrowUpRight,
   BarChart3,
+  Building2,
   Briefcase,
+  BriefcaseBusiness,
   CalendarDays,
   CheckCircle2,
   ChevronDown,
@@ -31,6 +33,8 @@ import {
   type ExperienceItem,
   type SiteContent,
 } from '@/lib/site-content'
+
+type ExperienceGroupKey = keyof SiteContent['experience']
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -144,15 +148,46 @@ function AchievementCard({
 }
 
 function ExperienceGroup({
-  title,
+  group,
   items,
 }: {
-  title: string
+  group: ExperienceGroupKey
   items: ExperienceItem[]
 }) {
+  const isContract = group === 'contractual'
+  const title = isContract ? 'Contract Experience (CV)' : 'Upwork Project Experience'
+  const subtitle = isContract
+    ? 'Formal contractual roles from direct client agreements and CV history.'
+    : 'Delivered projects through Upwork with outcome-focused execution.'
+
   return (
-    <div className="space-y-4">
-      <h3 className="font-display text-2xl leading-[1.22]">{title}</h3>
+    <div className="space-y-5">
+      <div className="glass-card p-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
+              isContract
+                ? 'bg-[var(--night)] text-white'
+                : 'bg-[#14A800]/15 text-[#128200]'
+            }`}
+          >
+            {isContract ? <Building2 className="h-3.5 w-3.5" /> : <BriefcaseBusiness className="h-3.5 w-3.5" />}
+            {isContract ? 'CV Roles' : 'Upwork Projects'}
+          </span>
+          <span className="text-xs text-slate-500">
+            {items.length} item{items.length === 1 ? '' : 's'}
+          </span>
+        </div>
+        <h3 className="mt-3 font-display text-2xl leading-[1.28]">{title}</h3>
+        <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
+      </div>
+
+      {items.length === 0 ? (
+        <div className="glass-card p-6 text-sm text-slate-600">
+          No experience items configured for this section yet.
+        </div>
+      ) : null}
+
       <div className="space-y-4">
         {items.map((job, index) => (
           <motion.article
@@ -164,9 +199,18 @@ function ExperienceGroup({
             custom={index}
             className="glass-card p-5"
           >
-            <div className="mb-2 flex flex-wrap items-center gap-3">
-              <h4 className="font-display text-2xl leading-[1.22]">{job.role}</h4>
-              <span className="rounded-full bg-[var(--night)] px-3 py-1 text-xs font-semibold text-white">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <span
+                className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                  isContract
+                    ? 'bg-[var(--night)] text-white'
+                    : 'bg-[#14A800]/15 text-[#128200]'
+                }`}
+              >
+                {isContract ? 'Contract' : 'Upwork'}
+              </span>
+              <h4 className="font-display text-2xl leading-[1.28]">{job.role}</h4>
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
                 {job.company}
               </span>
             </div>
@@ -205,6 +249,7 @@ function ExperienceGroup({
 export default function PortfolioPage() {
   const [achievements, setAchievements] = useState<Achievement[]>(defaultAchievements)
   const [siteContent, setSiteContent] = useState<SiteContent>(defaultSiteContent)
+  const [experienceView, setExperienceView] = useState<ExperienceGroupKey>('contractual')
   const [menuOpen, setMenuOpen] = useState(false)
   const [showBackToTopOnMobile, setShowBackToTopOnMobile] = useState(false)
   const [showHiddenAdmin, setShowHiddenAdmin] = useState(false)
@@ -318,6 +363,28 @@ export default function PortfolioPage() {
   }
 
   const emailHref = `mailto:${siteContent.profile.email}`
+  const experienceTabs: Array<{
+    id: ExperienceGroupKey
+    label: string
+    helper: string
+    icon: typeof Building2
+    count: number
+  }> = [
+    {
+      id: 'contractual',
+      label: 'Contractual CV',
+      helper: 'Formal roles',
+      icon: Building2,
+      count: siteContent.experience.contractual.length,
+    },
+    {
+      id: 'upwork',
+      label: 'Upwork',
+      helper: 'Project outcomes',
+      icon: BriefcaseBusiness,
+      count: siteContent.experience.upwork.length,
+    },
+  ]
 
   return (
     <div className="relative overflow-x-hidden text-[var(--ink)]">
@@ -507,9 +574,44 @@ export default function PortfolioPage() {
           <p className="section-label">Experience</p>
           <h2 className="mt-2 font-display text-4xl leading-[1.2] md:text-5xl">Professional Timeline</h2>
 
-          <div className="mt-8 space-y-10">
-            <ExperienceGroup title="Contract Experience" items={siteContent.experience.contractual} />
-            <ExperienceGroup title="Upwork Experience" items={siteContent.experience.upwork} />
+          <div className="mt-8 space-y-6">
+            <div className="glass-card p-2">
+              <div className="grid gap-2 sm:grid-cols-2">
+                {experienceTabs.map(tab => {
+                  const Icon = tab.icon
+                  const isActive = experienceView === tab.id
+
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setExperienceView(tab.id)}
+                      className={`rounded-xl border px-4 py-3 text-left transition ${
+                        isActive
+                          ? 'border-transparent bg-[var(--night)] text-white'
+                          : 'border-black/10 bg-white text-slate-700 hover:bg-black/[0.03]'
+                      }`}
+                    >
+                      <p className="inline-flex items-center gap-2 text-sm font-semibold">
+                        <Icon className="h-4 w-4" /> {tab.label}
+                      </p>
+                      <p
+                        className={`mt-1 text-xs ${
+                          isActive ? 'text-slate-200' : 'text-slate-500'
+                        }`}
+                      >
+                        {tab.helper} · {tab.count}
+                      </p>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <ExperienceGroup
+              group={experienceView}
+              items={siteContent.experience[experienceView]}
+            />
           </div>
         </section>
 

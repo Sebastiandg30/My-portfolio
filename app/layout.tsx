@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Space_Grotesk, Syne, IBM_Plex_Mono } from 'next/font/google'
+import { Space_Grotesk, Sora, IBM_Plex_Mono } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 import UpworkBanner from '../components/ui/UpworkBanner'
@@ -11,10 +11,10 @@ const sansFont = Space_Grotesk({
   variable: '--font-sans',
 })
 
-const displayFont = Syne({
+const displayFont = Sora({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['500', '700', '800'],
+  weight: ['500', '600', '700', '800'],
 })
 
 const monoFont = IBM_Plex_Mono({
