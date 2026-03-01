@@ -49,6 +49,17 @@ const fadeUp = {
   }),
 }
 
+function UpworkMark({ className = '' }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-flex h-4 min-w-4 items-center justify-center rounded-[4px] bg-[#0f172a] px-1 font-mono-custom text-[9px] font-bold leading-none tracking-tight text-[#6fda44] ${className}`}
+    >
+      UP
+    </span>
+  )
+}
+
 function AchievementCard({
   achievement,
   index,
@@ -155,33 +166,9 @@ function ExperienceGroup({
   items: ExperienceItem[]
 }) {
   const isContract = group === 'contractual'
-  const title = isContract ? 'Contract Experience (CV)' : 'Upwork Project Experience'
-  const subtitle = isContract
-    ? 'Formal contractual roles from direct client agreements and CV history.'
-    : 'Delivered projects through Upwork with outcome-focused execution.'
 
   return (
     <div className="space-y-5">
-      <div className="glass-card p-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-              isContract
-                ? 'bg-[var(--night)] text-white'
-                : 'bg-[#14A800]/15 text-[#128200]'
-            }`}
-          >
-            {isContract ? <Building2 className="h-3.5 w-3.5" /> : <BriefcaseBusiness className="h-3.5 w-3.5" />}
-            {isContract ? 'CV Roles' : 'Upwork Projects'}
-          </span>
-          <span className="text-xs text-slate-500">
-            {items.length} item{items.length === 1 ? '' : 's'}
-          </span>
-        </div>
-        <h3 className="mt-3 font-display text-2xl leading-[1.28]">{title}</h3>
-        <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
-      </div>
-
       {items.length === 0 ? (
         <div className="glass-card p-6 text-sm text-slate-600">
           No experience items configured for this section yet.
@@ -201,13 +188,20 @@ function ExperienceGroup({
           >
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <span
-                className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
                   isContract
                     ? 'bg-[var(--night)] text-white'
                     : 'bg-[#14A800]/15 text-[#128200]'
                 }`}
               >
-                {isContract ? 'Contract' : 'Upwork'}
+                {isContract ? (
+                  'Contract'
+                ) : (
+                  <>
+                    <UpworkMark className="h-3.5 min-w-3.5 text-[8px]" />
+                    Upwork
+                  </>
+                )}
               </span>
               <h4 className="font-display text-2xl leading-[1.28]">{job.role}</h4>
               <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
@@ -461,6 +455,9 @@ export default function PortfolioPage() {
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
             <span className="section-label">QA Engineer · Test Automation</span>
+            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-[#14A800]/30 bg-[#14A800]/12 px-3 py-1 text-xs font-semibold text-[#0f7f00]">
+              <UpworkMark /> Top Rated on Upwork
+            </p>
 
             <h1 className="font-display text-5xl leading-[1.14] md:text-7xl">
               Real QA wins from
@@ -484,7 +481,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
               >
-                Upwork <ExternalLink className="h-4 w-4" />
+                <UpworkMark className="h-4 min-w-4 text-[9px]" /> Upwork <ExternalLink className="h-4 w-4" />
               </a>
             </div>
           </motion.div>
@@ -512,7 +509,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-semibold text-[var(--teal)] hover:underline"
               >
-                <ExternalLink className="h-4 w-4" /> Upwork profile
+                <UpworkMark /> <ExternalLink className="h-4 w-4" /> Upwork profile
               </a>
             </div>
 
@@ -587,17 +584,25 @@ export default function PortfolioPage() {
                       type="button"
                       onClick={() => setExperienceView(tab.id)}
                       className={`rounded-xl border px-4 py-3 text-left transition ${
-                        isActive
-                          ? 'border-transparent bg-[var(--night)] text-white'
-                          : 'border-black/10 bg-white text-slate-700 hover:bg-black/[0.03]'
+                        isActive && tab.id === 'upwork'
+                          ? 'border-[#128200] bg-[#14A800] text-white'
+                          : isActive
+                            ? 'border-transparent bg-[var(--night)] text-white'
+                            : 'border-black/10 bg-white text-slate-700 hover:bg-black/[0.03]'
                       }`}
                     >
                       <p className="inline-flex items-center gap-2 text-sm font-semibold">
-                        <Icon className="h-4 w-4" /> {tab.label}
+                        <Icon className="h-4 w-4" />
+                        {tab.label}
+                        {tab.id === 'upwork' ? <UpworkMark /> : null}
                       </p>
                       <p
                         className={`mt-1 text-xs ${
-                          isActive ? 'text-slate-200' : 'text-slate-500'
+                          isActive && tab.id === 'upwork'
+                            ? 'text-[#ecffe8]'
+                            : isActive
+                              ? 'text-slate-200'
+                              : 'text-slate-500'
                         }`}
                       >
                         {tab.helper} · {tab.count}
@@ -663,7 +668,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-4 py-2.5 text-sm font-semibold text-white"
               >
-                <ExternalLink className="h-4 w-4" /> Upwork
+                <UpworkMark className="h-4 min-w-4 text-[9px]" /> <ExternalLink className="h-4 w-4" /> Upwork
               </a>
               <a
                 href={emailHref}
