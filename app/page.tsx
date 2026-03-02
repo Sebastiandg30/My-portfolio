@@ -22,7 +22,6 @@ import {
   MapPin,
   Menu,
   Sparkles,
-  Star,
   Wrench,
   X,
 } from 'lucide-react'
@@ -50,26 +49,31 @@ const fadeUp = {
   }),
 }
 
-function UpworkMark({ className = '' }: { className?: string }) {
+function UpworkMark({
+  className = '',
+  size = 16,
+}: {
+  className?: string
+  size?: number
+}) {
   return (
-    <span
+    <Image
+      src="/upwork-icon.svg"
+      alt=""
       aria-hidden="true"
-      className={`inline-flex h-4 min-w-4 items-center justify-center rounded-[4px] bg-[#0f172a] px-1 font-mono-custom text-[9px] font-bold leading-none tracking-tight text-[#6fda44] ${className}`}
-    >
-      UP
-    </span>
+      width={size}
+      height={size}
+      className={`shrink-0 ${className}`}
+    />
   )
 }
 
 function TopRatedBadge() {
   return (
-    <span className="inline-flex w-fit items-center gap-3 rounded-2xl border border-black/10 bg-[#0f1115] px-3.5 py-2.5 shadow-[0_10px_24px_rgba(15,17,21,0.28)]">
-      <span className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center">
-        <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
-        <Star className="relative h-4.5 w-4.5 text-white" strokeWidth={2.3} />
-      </span>
-      <span className="font-display text-2xl leading-none text-white">Top Rated</span>
-    </span>
+    <div className="inline-flex w-fit items-center gap-3 rounded-[22px] bg-[#070b14] px-4 py-2.5 shadow-[0_12px_26px_rgba(7,11,20,0.3)]">
+      <UpworkMark size={36} className="rounded-[10px]" />
+      <span className="font-display text-[2.15rem] leading-none text-white">Top Rated</span>
+    </div>
   )
 }
 
@@ -211,7 +215,7 @@ function ExperienceGroup({
                   'Contract'
                 ) : (
                   <>
-                    <UpworkMark className="h-3.5 min-w-3.5 text-[8px]" />
+                    <UpworkMark size={14} />
                     Upwork
                   </>
                 )}
@@ -467,8 +471,8 @@ export default function PortfolioPage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 md:pt-16">
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
-            <div className="space-y-4">
-              <span className="section-label">QA Engineer · Test Automation</span>
+            <div className="flex flex-col items-start gap-4">
+              <p className="section-label">QA Engineer · Test Automation</p>
               <TopRatedBadge />
             </div>
 
@@ -494,7 +498,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
               >
-                <UpworkMark className="h-4 min-w-4 text-[9px]" /> Upwork <ExternalLink className="h-4 w-4" />
+                <UpworkMark size={16} /> Upwork <ExternalLink className="h-4 w-4" />
               </a>
             </div>
           </motion.div>
@@ -522,7 +526,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-semibold text-[var(--teal)] hover:underline"
               >
-                <UpworkMark /> <ExternalLink className="h-4 w-4" /> Upwork profile
+                <UpworkMark size={15} /> <ExternalLink className="h-4 w-4" /> Upwork profile
               </a>
             </div>
 
@@ -607,7 +611,7 @@ export default function PortfolioPage() {
                       <p className="inline-flex items-center gap-2 text-sm font-semibold">
                         <Icon className="h-4 w-4" />
                         {tab.label}
-                        {tab.id === 'upwork' ? <UpworkMark /> : null}
+                        {tab.id === 'upwork' ? <UpworkMark size={14} /> : null}
                       </p>
                       <p
                         className={`mt-1 text-xs ${
@@ -681,7 +685,7 @@ export default function PortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#14A800] px-4 py-2.5 text-sm font-semibold text-white"
               >
-                <UpworkMark className="h-4 min-w-4 text-[9px]" /> <ExternalLink className="h-4 w-4" /> Upwork
+                <UpworkMark size={16} /> <ExternalLink className="h-4 w-4" /> Upwork
               </a>
               <a
                 href={emailHref}
