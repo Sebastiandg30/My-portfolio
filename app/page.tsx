@@ -22,6 +22,7 @@ import {
   MapPin,
   Menu,
   Sparkles,
+  Star,
   Wrench,
   X,
 } from 'lucide-react'
@@ -70,9 +71,12 @@ function UpworkMark({
 
 function TopRatedBadge() {
   return (
-    <div className="inline-flex w-fit items-center gap-3 rounded-[22px] bg-[#070b14] px-4 py-2.5 shadow-[0_12px_26px_rgba(7,11,20,0.3)]">
-      <UpworkMark size={36} className="rounded-[10px]" />
-      <span className="font-display text-[2.15rem] leading-none text-white">Top Rated</span>
+    <div className="inline-flex w-fit items-center gap-2.5 rounded-2xl border border-[#2f6fff]/25 bg-white/80 px-3.5 py-2 shadow-[0_8px_20px_rgba(47,111,255,0.18)] backdrop-blur">
+      <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center">
+        <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
+        <Star className="relative h-4 w-4 text-white" strokeWidth={2.4} />
+      </span>
+      <span className="font-display text-2xl leading-none text-slate-900">Top Rated</span>
     </div>
   )
 }
@@ -471,9 +475,11 @@ export default function PortfolioPage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 md:pt-16">
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
-            <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-wrap items-center gap-y-3">
               <p className="section-label">QA Engineer · Test Automation</p>
-              <TopRatedBadge />
+              <div className="ml-5 md:ml-12">
+                <TopRatedBadge />
+              </div>
             </div>
 
             <h1 className="font-display text-5xl leading-[1.14] md:text-7xl">
