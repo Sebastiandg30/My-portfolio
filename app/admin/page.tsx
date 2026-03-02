@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowDown,
@@ -243,6 +243,7 @@ function Dashboard({
   const [saveState, setSaveState] = useState<SaveState>('idle')
   const [saveMessage, setSaveMessage] = useState('')
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const persistLockRef = useRef(false)
 
   useEffect(() => {
     const load = async () => {
@@ -464,35 +465,52 @@ function Dashboard({
   }
 
   const persist = async () => {
+    if (persistLockRef.current) return
+    persistLockRef.current = true
     setSaveState('saving')
     setSaveMessage('')
 
-    const [achievementsResult, siteContentResult] = await Promise.allSettled([
-      saveAchievements(password, achievements),
-      saveSiteContent(password, siteContent),
-    ])
+    try {
+      // Save sequentially to reduce write contention when GitHub storage is enabled.
+      let siteContentError: unknown = null
+      let achievementsError: unknown = null
 
-    if (
-      achievementsResult.status === 'fulfilled' &&
-      siteContentResult.status === 'fulfilled'
-    ) {
-      setSaveState('saved')
-      setSaveMessage('Changes published successfully.')
-      setHasUnsavedChanges(false)
-      setTimeout(() => setSaveState('idle'), 1800)
-      return
-    }
+      try {
+        await saveSiteContent(password, siteContent)
+      } catch (error) {
+        siteContentError = error
+      }
 
-    const failures: string[] = []
-    if (achievementsResult.status === 'rejected') {
-      failures.push(`Achievements: ${extractErrorMessage(achievementsResult.reason)}`)
-    }
-    if (siteContentResult.status === 'rejected') {
-      failures.push(`Site content: ${extractErrorMessage(siteContentResult.reason)}`)
-    }
+      try {
+        await saveAchievements(password, achievements)
+      } catch (error) {
+        achievementsError = error
+      }
 
-    setSaveState('error')
-    setSaveMessage(failures.join(' | '))
+      if (
+        !siteContentError &&
+        !achievementsError
+      ) {
+        setSaveState('saved')
+        setSaveMessage('Changes published successfully.')
+        setHasUnsavedChanges(false)
+        setTimeout(() => setSaveState('idle'), 1800)
+        return
+      }
+
+      const failures: string[] = []
+      if (siteContentError) {
+        failures.push(`Site content: ${extractErrorMessage(siteContentError)}`)
+      }
+      if (achievementsError) {
+        failures.push(`Achievements: ${extractErrorMessage(achievementsError)}`)
+      }
+
+      setSaveState('error')
+      setSaveMessage(failures.join(' | '))
+    } finally {
+      persistLockRef.current = false
+    }
   }
 
   const renderExperienceGroup = (

@@ -33,6 +33,11 @@ function withBranchRef(url: string): string {
   return `${url}${separator}ref=${encodeURIComponent(githubBranch)}`
 }
 
+function extractCurrentShaFromError(details: string): string | undefined {
+  const match = details.match(/\bis\s+([a-f0-9]{40})\s+but\s+expected\b/i)
+  return match?.[1]
+}
+
 async function fetchGitHubFileSha(): Promise<string | undefined> {
   const url = withBranchRef(githubContentsEndpoint())
   const response = await fetch(url, {
@@ -108,28 +113,13 @@ async function writeToGitHub(siteContent: SiteContent): Promise<void> {
     body.sha = existing.sha
   }
 
-  const MAX_RETRIES = 2
+  const MAX_RETRIES = 4
 
-  let response = await fetch(githubContentsEndpoint(), {
-    method: 'PUT',
-    headers: {
-      ...githubHeaders(),
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
+  let lastStatus = 500
+  let lastDetails = 'Unknown GitHub write error'
 
-  for (let attempt = 0; attempt < MAX_RETRIES; attempt += 1) {
-    if (response.ok) break
-
-    const shouldRefreshSha = response.status === 409 || response.status === 422
-    if (!shouldRefreshSha) break
-
-    const latestSha = await fetchGitHubFileSha()
-    if (!latestSha || latestSha === body.sha) break
-
-    body.sha = latestSha
-    response = await fetch(githubContentsEndpoint(), {
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
+    const response = await fetch(githubContentsEndpoint(), {
       method: 'PUT',
       headers: {
         ...githubHeaders(),
@@ -137,12 +127,23 @@ async function writeToGitHub(siteContent: SiteContent): Promise<void> {
       },
       body: JSON.stringify(body),
     })
+
+    if (response.ok) return
+
+    lastStatus = response.status
+    lastDetails = await response.text()
+
+    const shouldRefreshSha = response.status === 409 || response.status === 422
+    if (!shouldRefreshSha) break
+
+    const shaFromError = extractCurrentShaFromError(lastDetails)
+    const latestSha = shaFromError ?? (await fetchGitHubFileSha())
+    if (!latestSha || latestSha === body.sha) break
+
+    body.sha = latestSha
   }
 
-  if (!response.ok) {
-    const details = await response.text()
-    throw new Error(`GitHub write failed (${response.status}): ${details}`)
-  }
+  throw new Error(`GitHub write failed (${lastStatus}): ${lastDetails}`)
 }
 
 async function readFromLocalFile(): Promise<SiteContent> {
