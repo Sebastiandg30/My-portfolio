@@ -108,6 +108,8 @@ async function writeToGitHub(achievements: Achievement[]): Promise<void> {
     body.sha = existing.sha
   }
 
+  const MAX_RETRIES = 2
+
   let response = await fetch(githubContentsEndpoint(), {
     method: 'PUT',
     headers: {
@@ -117,19 +119,24 @@ async function writeToGitHub(achievements: Achievement[]): Promise<void> {
     body: JSON.stringify(body),
   })
 
-  if (response.status === 422 && !body.sha) {
-    const fallbackSha = await fetchGitHubFileSha()
-    if (fallbackSha) {
-      body.sha = fallbackSha
-      response = await fetch(githubContentsEndpoint(), {
-        method: 'PUT',
-        headers: {
-          ...githubHeaders(),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-    }
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt += 1) {
+    if (response.ok) break
+
+    const shouldRefreshSha = response.status === 409 || response.status === 422
+    if (!shouldRefreshSha) break
+
+    const latestSha = await fetchGitHubFileSha()
+    if (!latestSha || latestSha === body.sha) break
+
+    body.sha = latestSha
+    response = await fetch(githubContentsEndpoint(), {
+      method: 'PUT',
+      headers: {
+        ...githubHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
   }
 
   if (!response.ok) {
