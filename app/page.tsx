@@ -620,6 +620,7 @@ export default function PortfolioPage() {
                         <Icon className="h-4 w-4" />
                         {tab.label}
                         {tab.id === 'upwork' ? <UpworkMark size={14} /> : null}
+                        {tab.id === 'upwork' && isActive ? <TopRatedBadge /> : null}
                       </p>
                       <p
                         className={`mt-1 text-xs ${
