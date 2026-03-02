@@ -83,6 +83,24 @@ function TopRatedBadge() {
   )
 }
 
+function TopRatedMiniBadge({ onGreen = false }: { onGreen?: boolean }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 ${
+        onGreen ? 'bg-[#0f172a]/30 text-white' : 'bg-[#2f6fff]/12 text-[#1f4fc6]'
+      }`}
+    >
+      <span className="relative inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center">
+        <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
+        <Star className="relative h-2.5 w-2.5 text-white" strokeWidth={2.6} />
+      </span>
+      <span className="font-mono-custom text-[9px] font-semibold uppercase tracking-[0.12em]">
+        Top Rated
+      </span>
+    </span>
+  )
+}
+
 function AchievementCard({
   achievement,
   index,
@@ -616,11 +634,11 @@ export default function PortfolioPage() {
                             : 'border-black/10 bg-white text-slate-700 hover:bg-black/[0.03]'
                       }`}
                     >
-                      <p className="inline-flex items-center gap-2 text-sm font-semibold">
+                      <p className="inline-flex flex-wrap items-center gap-2 text-sm font-semibold">
                         <Icon className="h-4 w-4" />
                         {tab.label}
                         {tab.id === 'upwork' ? <UpworkMark size={14} /> : null}
-                        {tab.id === 'upwork' && isActive ? <TopRatedBadge /> : null}
+                        {tab.id === 'upwork' ? <TopRatedMiniBadge onGreen={isActive} /> : null}
                       </p>
                       <p
                         className={`mt-1 text-xs ${
