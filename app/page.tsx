@@ -22,6 +22,7 @@ import {
   MapPin,
   Menu,
   Sparkles,
+  Star,
   Wrench,
   X,
 } from 'lucide-react'
@@ -56,6 +57,18 @@ function UpworkMark({ className = '' }: { className?: string }) {
       className={`inline-flex h-4 min-w-4 items-center justify-center rounded-[4px] bg-[#0f172a] px-1 font-mono-custom text-[9px] font-bold leading-none tracking-tight text-[#6fda44] ${className}`}
     >
       UP
+    </span>
+  )
+}
+
+function TopRatedBadge() {
+  return (
+    <span className="inline-flex w-fit items-center gap-3 rounded-2xl border border-black/10 bg-[#0f1115] px-3.5 py-2.5 shadow-[0_10px_24px_rgba(15,17,21,0.28)]">
+      <span className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center">
+        <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
+        <Star className="relative h-4.5 w-4.5 text-white" strokeWidth={2.3} />
+      </span>
+      <span className="font-display text-2xl leading-none text-white">Top Rated</span>
     </span>
   )
 }
@@ -454,10 +467,10 @@ export default function PortfolioPage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 md:pt-16">
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
-            <span className="section-label">QA Engineer · Test Automation</span>
-            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-[#14A800]/30 bg-[#14A800]/12 px-3 py-1 text-xs font-semibold text-[#0f7f00]">
-              <UpworkMark /> Top Rated on Upwork
-            </p>
+            <div className="space-y-4">
+              <span className="section-label">QA Engineer · Test Automation</span>
+              <TopRatedBadge />
+            </div>
 
             <h1 className="font-display text-5xl leading-[1.14] md:text-7xl">
               Real QA wins from
