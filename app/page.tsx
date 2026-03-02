@@ -69,28 +69,14 @@ function UpworkMark({
   )
 }
 
-function TopRatedBadge({ compact = false }: { compact?: boolean }) {
-  if (compact) {
-    return (
-      <div className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#2f6fff]/10 px-2 py-1">
-        <span className="relative inline-flex h-4 w-4 shrink-0 items-center justify-center">
-          <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
-          <Star className="relative h-2.5 w-2.5 text-white" strokeWidth={2.6} />
-        </span>
-        <span className="font-mono-custom text-[10px] font-semibold uppercase tracking-[0.12em] text-[#1f4fc6]">
-          Top Rated
-        </span>
-      </div>
-    )
-  }
-
+function TopRatedBadge() {
   return (
-    <div className="inline-flex w-fit items-center gap-2 rounded-xl border border-[#2f6fff]/25 bg-white/85 px-2.5 py-1.5 shadow-[0_8px_18px_rgba(47,111,255,0.16)] backdrop-blur md:gap-2.5 md:rounded-2xl md:px-3.5 md:py-2">
-      <span className="relative inline-flex h-7 w-7 shrink-0 items-center justify-center md:h-8 md:w-8">
+    <div className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#2f6fff]/10 px-2 py-1">
+      <span className="relative inline-flex h-4 w-4 shrink-0 items-center justify-center">
         <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
-        <Star className="relative h-3.5 w-3.5 text-white md:h-4 md:w-4" strokeWidth={2.4} />
+        <Star className="relative h-2.5 w-2.5 text-white" strokeWidth={2.6} />
       </span>
-      <span className="font-display text-[2rem] leading-none text-slate-900 md:text-2xl">
+      <span className="font-mono-custom text-[10px] font-semibold uppercase tracking-[0.12em] text-[#1f4fc6]">
         Top Rated
       </span>
     </div>
@@ -491,12 +477,9 @@ export default function PortfolioPage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 md:pt-16">
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
-            <div className="flex w-full items-center justify-between gap-3 md:block">
+            <div className="flex w-full items-center justify-between gap-3 md:justify-start md:gap-8">
               <p className="section-label min-w-0">QA Engineer · Test Automation</p>
-              <div className="shrink-0 md:hidden">
-                <TopRatedBadge compact />
-              </div>
-              <div className="hidden md:ml-8 md:block">
+              <div className="shrink-0">
                 <TopRatedBadge />
               </div>
             </div>
