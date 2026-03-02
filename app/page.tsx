@@ -71,12 +71,14 @@ function UpworkMark({
 
 function TopRatedBadge() {
   return (
-    <div className="inline-flex w-fit items-center gap-2.5 rounded-2xl border border-[#2f6fff]/25 bg-white/80 px-3.5 py-2 shadow-[0_8px_20px_rgba(47,111,255,0.18)] backdrop-blur">
-      <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center">
+    <div className="inline-flex w-fit items-center gap-2 rounded-xl border border-[#2f6fff]/25 bg-white/85 px-2.5 py-1.5 shadow-[0_8px_18px_rgba(47,111,255,0.16)] backdrop-blur md:gap-2.5 md:rounded-2xl md:px-3.5 md:py-2">
+      <span className="relative inline-flex h-7 w-7 shrink-0 items-center justify-center md:h-8 md:w-8">
         <span className="absolute inset-0 bg-[#2f6fff] [clip-path:polygon(50%_0%,92%_25%,92%_75%,50%_100%,8%_75%,8%_25%)]" />
-        <Star className="relative h-4 w-4 text-white" strokeWidth={2.4} />
+        <Star className="relative h-3.5 w-3.5 text-white md:h-4 md:w-4" strokeWidth={2.4} />
       </span>
-      <span className="font-display text-2xl leading-none text-slate-900">Top Rated</span>
+      <span className="font-display text-[2rem] leading-none text-slate-900 md:text-2xl">
+        Top Rated
+      </span>
     </div>
   )
 }
@@ -475,9 +477,9 @@ export default function PortfolioPage() {
       <main id="top" className="mx-auto w-full max-w-6xl px-4 pb-20 pt-12 md:pt-16">
         <section className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:items-end">
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="space-y-6">
-            <div className="flex flex-wrap items-center gap-y-3">
+            <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-3">
               <p className="section-label">QA Engineer · Test Automation</p>
-              <div className="ml-5 md:ml-12">
+              <div className="md:ml-8">
                 <TopRatedBadge />
               </div>
             </div>
