@@ -3,7 +3,7 @@
     "id": "test-framework-order-chaos",
     "title": "Test framework built from scratch that brought order to chaos",
     "company": "Uemura",
-    "role": "Manual QA",
+    "role": "TEST",
     "period": "2024",
     "challenge": "The team had no QA structure, no reusable tests, and no clear process across multiple active projects.",
     "action": "I built a Selenium framework from scratch with reusable components, organized suites, and a repeatable structure for multi-domain products.",
