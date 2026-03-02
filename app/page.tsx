@@ -87,7 +87,9 @@ function TopRatedMiniBadge({ onGreen = false }: { onGreen?: boolean }) {
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 ${
-        onGreen ? 'bg-[#0f172a]/30 text-white' : 'bg-[#2f6fff]/12 text-[#1f4fc6]'
+        onGreen
+          ? 'border border-white/60 bg-white text-[#1f4fc6]'
+          : 'bg-[#2f6fff]/12 text-[#1f4fc6]'
       }`}
     >
       <span className="relative inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center">
