@@ -91,14 +91,11 @@
     "upwork": [
       {
         "id": "upwork-framework",
-        "role": "QA Engineer",
+        "role": "WHOP Storefront and Discord Integration Tester",
         "company": "Automation Framework Build",
         "location": "Upwork",
-        "period": "2024",
-        "bullets": [
-          "Built a reusable Selenium automation framework from zero for multi-project use.",
-          "Defined structure, reusable components, and regression strategy for long-term maintainability."
-        ],
+        "period": "2025",
+        "bullets": [],
         "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
       },
       {
