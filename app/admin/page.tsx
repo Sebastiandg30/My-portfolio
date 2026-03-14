@@ -21,11 +21,14 @@ import {
 } from '@/lib/achievements'
 import {
   createContentId,
+  createEmptyContractExperienceItem,
+  createEmptyUpworkExperienceItem,
   defaultSiteContent,
   normalizeSiteContent,
   type CertificationItem,
-  type ExperienceItem,
+  type ContractExperienceItem,
   type SiteContent,
+  type UpworkExperienceItem,
 } from '@/lib/site-content'
 
 const SESSION_KEY = 'sg_admin_password'
@@ -312,16 +315,30 @@ function Dashboard({
     }))
   }
 
-  const updateExperienceItem = (
-    group: ExperienceGroupKey,
+  const updateContractExperienceItem = (
     id: string,
-    patch: Partial<ExperienceItem>,
+    patch: Partial<ContractExperienceItem>,
   ) => {
     updateSite(current => ({
       ...current,
       experience: {
         ...current.experience,
-        [group]: current.experience[group].map(item =>
+        contractual: current.experience.contractual.map(item =>
+          item.id === id ? { ...item, ...patch } : item,
+        ),
+      },
+    }))
+  }
+
+  const updateUpworkExperienceItem = (
+    id: string,
+    patch: Partial<UpworkExperienceItem>,
+  ) => {
+    updateSite(current => ({
+      ...current,
+      experience: {
+        ...current.experience,
+        upwork: current.experience.upwork.map(item =>
           item.id === id ? { ...item, ...patch } : item,
         ),
       },
@@ -329,21 +346,31 @@ function Dashboard({
   }
 
   const addExperienceItem = (group: ExperienceGroupKey) => {
-    const next: ExperienceItem = {
-      id: createContentId(group === 'contractual' ? 'contract' : 'upwork'),
-      role: 'QA Engineer',
-      company: '',
-      location: '',
-      period: '',
-      bullets: [],
-      link: group === 'upwork' ? siteContent.profile.upworkUrl : '',
+    if (group === 'contractual') {
+      const next = createEmptyContractExperienceItem(createContentId('contract'))
+
+      updateSite(current => ({
+        ...current,
+        experience: {
+          ...current.experience,
+          contractual: [next, ...current.experience.contractual],
+        },
+      }))
+
+      setOpenExperienceId(`${group}:${next.id}`)
+      return
     }
+
+    const next = createEmptyUpworkExperienceItem(
+      createContentId('upwork'),
+      siteContent.profile.upworkUrl,
+    )
 
     updateSite(current => ({
       ...current,
       experience: {
         ...current.experience,
-        [group]: [next, ...current.experience[group]],
+        upwork: [next, ...current.experience.upwork],
       },
     }))
 
@@ -353,13 +380,25 @@ function Dashboard({
   const removeExperienceItem = (group: ExperienceGroupKey, id: string) => {
     if (!confirm('Delete this experience item?')) return
 
-    updateSite(current => ({
-      ...current,
-      experience: {
-        ...current.experience,
-        [group]: current.experience[group].filter(item => item.id !== id),
-      },
-    }))
+    updateSite(current => {
+      if (group === 'contractual') {
+        return {
+          ...current,
+          experience: {
+            ...current.experience,
+            contractual: current.experience.contractual.filter(item => item.id !== id),
+          },
+        }
+      }
+
+      return {
+        ...current,
+        experience: {
+          ...current.experience,
+          upwork: current.experience.upwork.filter(item => item.id !== id),
+        },
+      }
+    })
 
     setOpenExperienceId(current => (current === `${group}:${id}` ? null : current))
   }
@@ -369,13 +408,25 @@ function Dashboard({
     index: number,
     direction: 'up' | 'down',
   ) => {
-    updateSite(current => ({
-      ...current,
-      experience: {
-        ...current.experience,
-        [group]: moveArrayItem(current.experience[group], index, direction),
-      },
-    }))
+    updateSite(current => {
+      if (group === 'contractual') {
+        return {
+          ...current,
+          experience: {
+            ...current.experience,
+            contractual: moveArrayItem(current.experience.contractual, index, direction),
+          },
+        }
+      }
+
+      return {
+        ...current,
+        experience: {
+          ...current.experience,
+          upwork: moveArrayItem(current.experience.upwork, index, direction),
+        },
+      }
+    })
   }
 
   const updateCertificationItem = (id: string, patch: Partial<CertificationItem>) => {
@@ -513,24 +564,22 @@ function Dashboard({
     }
   }
 
-  const renderExperienceGroup = (
-    group: ExperienceGroupKey,
-    title: string,
-    description: string,
-  ) => {
-    const items = siteContent.experience[group]
+  const renderContractExperienceGroup = () => {
+    const items = siteContent.experience.contractual
 
     return (
       <section className="space-y-4 rounded-2xl border border-black/10 bg-white/75 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="font-display text-2xl leading-[1.22]">{title}</p>
-            <p className="text-xs text-slate-500">{description}</p>
+            <p className="font-display text-2xl leading-[1.22]">Contract Experience (CV)</p>
+            <p className="text-xs text-slate-500">
+              Formal contractual roles from your CV and direct engagements.
+            </p>
           </div>
 
           <button
             type="button"
-            onClick={() => addExperienceItem(group)}
+            onClick={() => addExperienceItem('contractual')}
             className="inline-flex items-center gap-2 rounded-lg border border-black/15 bg-white px-3 py-2 text-sm font-semibold"
           >
             <Plus className="h-4 w-4" /> Add item
@@ -545,7 +594,7 @@ function Dashboard({
 
         <div className="space-y-3">
           {items.map((item, index) => {
-            const expanded = openExperienceId === `${group}:${item.id}`
+            const expanded = openExperienceId === `contractual:${item.id}`
             return (
               <article key={item.id} className="rounded-xl border border-black/10 bg-white/90 p-4">
                 <div className="flex items-start justify-between gap-3">
@@ -553,7 +602,7 @@ function Dashboard({
                     type="button"
                     onClick={() =>
                       setOpenExperienceId(current =>
-                        current === `${group}:${item.id}` ? null : `${group}:${item.id}`,
+                        current === `contractual:${item.id}` ? null : `contractual:${item.id}`,
                       )
                     }
                     className="text-left"
@@ -569,7 +618,7 @@ function Dashboard({
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
-                      onClick={() => moveExperienceItem(group, index, 'up')}
+                      onClick={() => moveExperienceItem('contractual', index, 'up')}
                       className="rounded-md border border-black/10 bg-white p-1.5 text-slate-600"
                       aria-label="Move up"
                     >
@@ -577,7 +626,7 @@ function Dashboard({
                     </button>
                     <button
                       type="button"
-                      onClick={() => moveExperienceItem(group, index, 'down')}
+                      onClick={() => moveExperienceItem('contractual', index, 'down')}
                       className="rounded-md border border-black/10 bg-white p-1.5 text-slate-600"
                       aria-label="Move down"
                     >
@@ -585,7 +634,7 @@ function Dashboard({
                     </button>
                     <button
                       type="button"
-                      onClick={() => removeExperienceItem(group, item.id)}
+                      onClick={() => removeExperienceItem('contractual', item.id)}
                       className="rounded-md border border-black/10 bg-white p-1.5 text-red-600"
                       aria-label="Delete item"
                     >
@@ -602,7 +651,7 @@ function Dashboard({
                         type="text"
                         value={item.role}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, { role: event.target.value })
+                          updateContractExperienceItem(item.id, { role: event.target.value })
                         }
                         className={FIELD_CLASS}
                       />
@@ -614,7 +663,7 @@ function Dashboard({
                         type="text"
                         value={item.company}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, { company: event.target.value })
+                          updateContractExperienceItem(item.id, { company: event.target.value })
                         }
                         className={FIELD_CLASS}
                       />
@@ -626,7 +675,7 @@ function Dashboard({
                         type="text"
                         value={item.location}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, { location: event.target.value })
+                          updateContractExperienceItem(item.id, { location: event.target.value })
                         }
                         className={FIELD_CLASS}
                       />
@@ -638,7 +687,7 @@ function Dashboard({
                         type="text"
                         value={item.period}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, { period: event.target.value })
+                          updateContractExperienceItem(item.id, { period: event.target.value })
                         }
                         className={FIELD_CLASS}
                       />
@@ -650,7 +699,7 @@ function Dashboard({
                         rows={4}
                         value={toMultilineText(item.bullets)}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, {
+                          updateContractExperienceItem(item.id, {
                             bullets: toLineList(event.target.value),
                           })
                         }
@@ -664,7 +713,271 @@ function Dashboard({
                         type="text"
                         value={item.link ?? ''}
                         onChange={event =>
-                          updateExperienceItem(group, item.id, {
+                          updateContractExperienceItem(item.id, {
+                            link: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+                  </div>
+                ) : null}
+              </article>
+            )
+          })}
+        </div>
+      </section>
+    )
+  }
+
+  const renderUpworkExperienceGroup = () => {
+    const items = siteContent.experience.upwork
+
+    return (
+      <section className="space-y-4 rounded-2xl border border-black/10 bg-white/75 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-display text-2xl leading-[1.22]">Upwork Experience</p>
+            <p className="text-xs text-slate-500">
+              Freelance project snapshots with titles, earnings, feedback, and proof visuals.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => addExperienceItem('upwork')}
+            className="inline-flex items-center gap-2 rounded-lg border border-black/15 bg-white px-3 py-2 text-sm font-semibold"
+          >
+            <Plus className="h-4 w-4" /> Add item
+          </button>
+        </div>
+
+        {items.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-black/15 bg-white px-4 py-4 text-sm text-slate-500">
+            No items yet.
+          </div>
+        ) : null}
+
+        <div className="space-y-3">
+          {items.map((item, index) => {
+            const expanded = openExperienceId === `upwork:${item.id}`
+            return (
+              <article key={item.id} className="rounded-xl border border-black/10 bg-white/90 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenExperienceId(current =>
+                        current === `upwork:${item.id}` ? null : `upwork:${item.id}`,
+                      )
+                    }
+                    className="text-left"
+                  >
+                    <p className="font-display text-xl leading-[1.22]">
+                      {item.title || 'Untitled Upwork project'}
+                    </p>
+                    <p className="mt-1 text-xs font-mono-custom uppercase tracking-[0.16em] text-slate-500">
+                      {[item.engagementType, item.period, item.earned].filter(Boolean).join(' · ') || 'Project details pending'}
+                    </p>
+                  </button>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => moveExperienceItem('upwork', index, 'up')}
+                      className="rounded-md border border-black/10 bg-white p-1.5 text-slate-600"
+                      aria-label="Move up"
+                    >
+                      <ArrowUp className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => moveExperienceItem('upwork', index, 'down')}
+                      className="rounded-md border border-black/10 bg-white p-1.5 text-slate-600"
+                      aria-label="Move down"
+                    >
+                      <ArrowDown className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeExperienceItem('upwork', item.id)}
+                      className="rounded-md border border-black/10 bg-white p-1.5 text-red-600"
+                      aria-label="Delete item"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {expanded ? (
+                  <div className="mt-4 grid gap-3 md:grid-cols-2">
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Project title
+                      <input
+                        type="text"
+                        value={item.title}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, { title: event.target.value })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Period
+                      <input
+                        type="text"
+                        value={item.period}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, { period: event.target.value })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Engagement type
+                      <input
+                        type="text"
+                        value={item.engagementType}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            engagementType: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Earned
+                      <input
+                        type="text"
+                        value={item.earned}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, { earned: event.target.value })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Hourly rate (optional)
+                      <input
+                        type="text"
+                        value={item.hourlyRate ?? ''}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            hourlyRate: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Hours (optional)
+                      <input
+                        type="text"
+                        value={item.hours ?? ''}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, { hours: event.target.value })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={LABEL_CLASS}>
+                      Client location
+                      <input
+                        type="text"
+                        value={item.clientLocation}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            clientLocation: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Client review status
+                      <input
+                        type="text"
+                        value={item.clientReview}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            clientReview: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Review quote (optional)
+                      <textarea
+                        rows={3}
+                        value={item.reviewQuote ?? ''}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            reviewQuote: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Signals / chips (comma or line separated)
+                      <textarea
+                        rows={3}
+                        value={toMultilineText(item.signals)}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            signals: toFlexibleList(event.target.value),
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Outcome bullets (one per line)
+                      <textarea
+                        rows={4}
+                        value={toMultilineText(item.bullets)}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            bullets: toLineList(event.target.value),
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Proof image path (optional)
+                      <input
+                        type="text"
+                        value={item.proofImage ?? ''}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
+                            proofImage: event.target.value,
+                          })
+                        }
+                        className={FIELD_CLASS}
+                      />
+                    </label>
+
+                    <label className={`${LABEL_CLASS} md:col-span-2`}>
+                      Link (optional)
+                      <input
+                        type="text"
+                        value={item.link ?? ''}
+                        onChange={event =>
+                          updateUpworkExperienceItem(item.id, {
                             link: event.target.value,
                           })
                         }
@@ -907,16 +1220,8 @@ function Dashboard({
 
         {!loading && activeTab === 'experience' ? (
           <div className="space-y-4">
-            {renderExperienceGroup(
-              'contractual',
-              'Contract Experience (CV)',
-              'Formal contractual roles from your CV and direct engagements.',
-            )}
-            {renderExperienceGroup(
-              'upwork',
-              'Upwork Experience',
-              'Client case work and project outcomes from Upwork.',
-            )}
+            {renderContractExperienceGroup()}
+            {renderUpworkExperienceGroup()}
           </div>
         ) : null}
 

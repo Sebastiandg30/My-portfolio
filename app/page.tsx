@@ -31,8 +31,9 @@ import { defaultAchievements, normalizeAchievements, type Achievement } from '@/
 import {
   defaultSiteContent,
   normalizeSiteContent,
-  type ExperienceItem,
+  type ContractExperienceItem,
   type SiteContent,
+  type UpworkExperienceItem,
 } from '@/lib/site-content'
 
 type ExperienceGroupKey = keyof SiteContent['experience']
@@ -201,15 +202,11 @@ function AchievementCard({
   )
 }
 
-function ExperienceGroup({
-  group,
+function ContractExperienceGroup({
   items,
 }: {
-  group: ExperienceGroupKey
-  items: ExperienceItem[]
+  items: ContractExperienceItem[]
 }) {
-  const isContract = group === 'contractual'
-
   return (
     <div className="space-y-5">
       {items.length === 0 ? (
@@ -231,20 +228,9 @@ function ExperienceGroup({
           >
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
-                  isContract
-                    ? 'bg-[var(--night)] text-white'
-                    : 'bg-[#14A800]/15 text-[#128200]'
-                }`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-[var(--night)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white"
               >
-                {isContract ? (
-                  'Contract'
-                ) : (
-                  <>
-                    <UpworkMark size={14} />
-                    Upwork
-                  </>
-                )}
+                Contract
               </span>
               <h4 className="font-display text-2xl leading-[1.28]">{job.role}</h4>
               <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
@@ -278,6 +264,179 @@ function ExperienceGroup({
             ) : null}
           </motion.article>
         ))}
+      </div>
+    </div>
+  )
+}
+
+function UpworkProofPreview({
+  job,
+}: {
+  job: UpworkExperienceItem
+}) {
+  if (job.proofImage) {
+    return (
+      <div className="relative aspect-[1.18] overflow-hidden rounded-[28px] border border-black/10 bg-[#11151d] shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
+        <Image
+          src={job.proofImage}
+          alt={`${job.title} Upwork proof snapshot`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 38vw"
+          className="object-cover"
+        />
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-[28px] border border-black/10 bg-[#11151d] p-5 text-white shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
+      <div className="inline-flex items-center gap-2 rounded-full bg-[#19351B] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#61D44C]">
+        <UpworkMark size={14} /> Upwork
+      </div>
+      <h5 className="mt-4 font-display text-2xl leading-[1.18]">{job.title}</h5>
+      <p className="mt-3 font-mono-custom text-xs uppercase tracking-[0.16em] text-slate-300">
+        {job.period}
+      </p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {[job.engagementType, job.earned, job.hourlyRate, job.hours]
+          .filter(Boolean)
+          .map(item => (
+            <span
+              key={`${job.id}-${item}`}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-100"
+            >
+              {item}
+            </span>
+          ))}
+      </div>
+      <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">Client snapshot</p>
+        <p className="mt-2 text-sm text-white">{job.clientReview}</p>
+        {job.reviewQuote ? (
+          <p className="mt-2 text-sm text-slate-300">&ldquo;{job.reviewQuote}&rdquo;</p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function UpworkExperienceGroup({
+  items,
+}: {
+  items: UpworkExperienceItem[]
+}) {
+  return (
+    <div className="space-y-5">
+      {items.length === 0 ? (
+        <div className="glass-card p-6 text-sm text-slate-600">
+          No Upwork projects configured for this section yet.
+        </div>
+      ) : null}
+
+      <div className="space-y-4">
+        {items.map((job, index) => {
+          const metaPills = [job.engagementType, job.earned, job.hourlyRate, job.hours].filter(Boolean)
+
+          return (
+            <motion.article
+              key={job.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-50px' }}
+              custom={index}
+              className="glass-card p-5 md:p-6"
+            >
+              <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+                <div>
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#14A800]/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#128200]">
+                      <UpworkMark size={14} />
+                      Upwork project
+                    </span>
+                    {metaPills.map(item => (
+                      <span
+                        key={`${job.id}-${item}`}
+                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h4 className="font-display text-2xl leading-[1.18] md:text-3xl">{job.title}</h4>
+
+                  <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
+                    <p className="inline-flex items-center gap-2">
+                      <CalendarDays className="h-4 w-4 text-[var(--teal)]" />
+                      {job.period}
+                    </p>
+                    {job.clientLocation ? (
+                      <p className="inline-flex items-center gap-2">
+                        <MapPin className="h-4 w-4 text-[var(--tomato)]" />
+                        {job.clientLocation}
+                      </p>
+                    ) : null}
+                    {job.clientReview ? (
+                      <p className="inline-flex items-center gap-2">
+                        <Star className="h-4 w-4 text-[var(--mustard)]" />
+                        {job.clientReview}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  {job.reviewQuote ? (
+                    <blockquote className="mt-4 rounded-2xl border border-black/10 bg-black/[0.03] p-4 text-sm italic text-slate-700">
+                      &ldquo;{job.reviewQuote}&rdquo;
+                    </blockquote>
+                  ) : (
+                    <div className="mt-4 rounded-2xl border border-dashed border-black/10 bg-white/60 p-4 text-sm text-slate-600">
+                      {job.clientReview || 'Project snapshot available from Upwork.'}
+                    </div>
+                  )}
+
+                  <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                    {job.bullets.map((bullet, bulletIndex) => (
+                      <li key={`${job.id}-${bulletIndex}`} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--teal)]" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {job.signals.length ? (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {job.signals.map(signal => (
+                        <Badge
+                          key={`${job.id}-${signal}`}
+                          className="border-black/10 bg-black/[0.04] px-2.5 py-1 text-xs text-slate-700"
+                        >
+                          {signal}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {job.link ? (
+                    <a
+                      href={job.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--teal)] hover:underline"
+                    >
+                      View on Upwork profile <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  ) : null}
+                </div>
+
+                <div className="space-y-2">
+                  <p className="section-label">Snapshot</p>
+                  <UpworkProofPreview job={job} />
+                </div>
+              </div>
+            </motion.article>
+          )
+        })}
       </div>
     </div>
   )
@@ -659,10 +818,11 @@ export default function PortfolioPage() {
               </div>
             </div>
 
-            <ExperienceGroup
-              group={experienceView}
-              items={siteContent.experience[experienceView]}
-            />
+            {experienceView === 'contractual' ? (
+              <ContractExperienceGroup items={siteContent.experience.contractual} />
+            ) : (
+              <UpworkExperienceGroup items={siteContent.experience.upwork} />
+            )}
           </div>
         </section>
 

@@ -90,36 +90,150 @@
     ],
     "upwork": [
       {
-        "id": "upwork-framework",
-        "role": "WHOP Storefront and Discord Integration Tester",
-        "company": "Automation Framework Build",
-        "location": "Upwork",
-        "period": "2025",
-        "bullets": [],
+        "id": "upwork-digital-qe",
+        "title": "Digital QE (Quality Engineering) Specialist, Test Cases, Test Scripts",
+        "period": "Nov 11, 2025 - Present",
+        "engagementType": "Hourly",
+        "earned": "$10,944 earned",
+        "hourlyRate": "$18/hr",
+        "hours": "608 hours",
+        "clientLocation": "Private client",
+        "clientReview": "Job in progress",
+        "signals": [
+          "Quality engineering",
+          "Test cases",
+          "Test scripts"
+        ],
+        "bullets": [
+          "Long-running hourly engagement focused on structured QE work, test case design, and test script creation.",
+          "Supports repeatable validation coverage through documented scenarios and disciplined execution."
+        ],
+        "proofImage": "/upwork-previews/digital-qe.svg",
         "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
       },
       {
-        "id": "upwork-lead-pipeline",
-        "role": "QA Engineer",
-        "company": "Lead Quality Automation",
-        "location": "Upwork",
-        "period": "2025",
-        "bullets": [
-          "Automated quality control pipeline for large lead datasets with API and AI-assisted checks.",
-          "Removed manual bottlenecks and improved consistency of delivered datasets."
+        "id": "upwork-saas-dashboard",
+        "title": "QA Tester Needed for SaaS Dashboard (Backend Aware)",
+        "period": "Feb 20, 2026 - Mar 8, 2026",
+        "engagementType": "Fixed price",
+        "earned": "$220 earned",
+        "clientLocation": "Private client",
+        "clientReview": "No feedback given",
+        "signals": [
+          "SaaS dashboard",
+          "Backend aware",
+          "Private engagement"
         ],
+        "bullets": [
+          "Validated a backend-aware SaaS dashboard engagement with attention to product flows and system behavior.",
+          "Completed a private fixed-price project where the public job description remains hidden on Upwork."
+        ],
+        "proofImage": "/upwork-previews/saas-dashboard.svg",
         "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
       },
       {
-        "id": "upwork-finance-validation",
-        "role": "QA Engineer",
-        "company": "Financial Invoice Validation",
-        "location": "Upwork",
-        "period": "2025 - 2026",
-        "bullets": [
-          "Built automated scenario-based validation for finance-critical invoice flows.",
-          "Reduced time to detect accounting mismatches and prevented defects from reaching staging."
+        "id": "upwork-linux-vps",
+        "title": "Linux VPS deployment plan + estimate",
+        "period": "Feb 27, 2026 - Mar 2, 2026",
+        "engagementType": "Fixed price",
+        "earned": "$25 earned",
+        "clientLocation": "Canada · Abbotsford",
+        "clientReview": "5.0 client review",
+        "reviewQuote": "Sebastian was very thorough in his report, understood the job well and went above and beyond to deliver project requirements as discussed.",
+        "signals": [
+          "Committed to Quality",
+          "Solution Oriented",
+          "Clear Communicator",
+          "Accountable for Outcomes"
         ],
+        "bullets": [
+          "Reviewed deployment options for a data extraction product moving beyond Vercel constraints.",
+          "Delivered a detailed Linux VPS recommendation and estimate that went beyond the initial brief."
+        ],
+        "proofImage": "/upwork-previews/linux-vps.svg",
+        "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+      },
+      {
+        "id": "upwork-testing-mobile",
+        "title": "Testing Mobile App",
+        "period": "Jan 16, 2026 - Jan 18, 2026",
+        "engagementType": "Fixed price",
+        "earned": "$32 earned",
+        "clientLocation": "United States · San Francisco",
+        "clientReview": "5.0 client review",
+        "reviewQuote": "It was great working with Sebastian, he was very proactive, communicated results very well, and made sure everything is as expected. I would definitely work with him again.",
+        "signals": [
+          "Collaborative",
+          "Committed to Quality",
+          "Clear Communicator"
+        ],
+        "bullets": [
+          "Tested mobile app behavior against expected flows and communicated findings proactively.",
+          "Delivered clear QA results that earned direct praise for communication and follow-through."
+        ],
+        "proofImage": "/upwork-previews/testing-mobile-app.svg",
+        "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+      },
+      {
+        "id": "upwork-whop-discord",
+        "title": "WHOP Storefront and Discord Integration Tester",
+        "period": "Oct 1, 2025 - Oct 2, 2025",
+        "engagementType": "Fixed price",
+        "earned": "$25 earned",
+        "clientLocation": "Australia · Birchgrove",
+        "clientReview": "5.0 client review",
+        "reviewQuote": "Nice to work with him",
+        "signals": [
+          "WHOP storefront",
+          "Discord integration",
+          "Subscription testing"
+        ],
+        "bullets": [
+          "Tested storefront subscription flows and Discord integration behavior for a WHOP setup.",
+          "Checked end-to-end functionality across subscription steps and user experience touchpoints."
+        ],
+        "proofImage": "/upwork-previews/whop-discord.svg",
+        "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+      },
+      {
+        "id": "upwork-manual-android",
+        "title": "Manual Mobile App Tester (Android)",
+        "period": "Oct 6, 2025 - Oct 9, 2025",
+        "engagementType": "Fixed price",
+        "earned": "$5 earned",
+        "clientLocation": "United Arab Emirates · Abu Dhabi",
+        "clientReview": "5.0 client review",
+        "reviewQuote": "Great work",
+        "signals": [
+          "Android",
+          "Manual testing",
+          "UX validation"
+        ],
+        "bullets": [
+          "Performed manual Android testing for app usability and core flow validation.",
+          "Delivered concise QA feedback that resulted in a 5.0 review."
+        ],
+        "proofImage": "/upwork-previews/manual-android.svg",
+        "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
+      },
+      {
+        "id": "upwork-freelancer-tool",
+        "title": "App Tester for Freelancer Productivity Tool",
+        "period": "Oct 18, 2025 - Oct 22, 2025",
+        "engagementType": "Fixed price",
+        "earned": "$5 earned",
+        "clientLocation": "Germany · Bremen",
+        "clientReview": "5.0 client review",
+        "signals": [
+          "Freelancer workflow",
+          "Productivity tool",
+          "Usability testing"
+        ],
+        "bullets": [
+          "Tested a freelancer productivity tool and checked critical delivery-related user flows.",
+          "Reported issues affecting usability and day-to-day workflow clarity."
+        ],
+        "proofImage": "/upwork-previews/freelancer-tool.svg",
         "link": "https://www.upwork.com/freelancers/~01797400cf1c137fb1"
       }
     ]
