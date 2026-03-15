@@ -244,18 +244,25 @@
   },
   "certifications": [
     {
-      "id": "cert-cs50x",
-      "title": "CS50's Intro to Computer Science",
-      "issuer": "Harvard University",
+      "id": "cert-7e3b6758-8d8d-4d3b-8bbb-3f68045d3ce9",
+      "title": "Professional Working Proficiency in English",
+      "issuer": "Universidad Central de Venezuela",
       "image": "/HarvardX CS50x.jpg",
-      "verifyUrl": "https://www.linkedin.com/in/sebastiangomez30/details/certifications/"
+      "verifyUrl": "https://www.dropbox.com/scl/fi/9scrqy6c4b86lwdc50xsy/CEBA.pdf?rlkey=60j94fmvfkfpzovaslbb7npio&e=1&st=yjm6wlbg&dl=0"
     },
     {
       "id": "cert-cs50p",
-      "title": "CS50's Intro to Python",
+      "title": "CS50's Computer Science for Python Programming",
       "issuer": "Harvard University",
       "image": "/HarvardX CS50P.jpg",
-      "verifyUrl": "https://www.linkedin.com/in/sebastiangomez30/details/certifications/"
+      "verifyUrl": "https://credentials.edx.org/credentials/85b94ae834f346f9b63bcb3143b41652/"
+    },
+    {
+      "id": "cert-cs50x",
+      "title": "CS50P: CS50's Introduction to Programming with Python",
+      "issuer": "Harvard University",
+      "image": "/HarvardX CS50x.jpg",
+      "verifyUrl": "https://courses.edx.org/certificates/ebc595200d6649ea81a5d6f375b4f4c2"
     },
     {
       "id": "cert-testing-masterclass",
